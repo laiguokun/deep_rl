@@ -14,7 +14,8 @@ from keras.optimizers import Adam
 import deeprl_hw2 as tfrl
 from deeprl_hw2.dqn import DQNAgent
 from deeprl_hw2.objectives import mean_huber_loss
-
+from deeprl_hw2.core import *
+from deeprl_hw2.policy import *
 
 def create_model(window, input_shape, num_actions,
                  model_name='q_network'):  # noqa: D103
@@ -45,7 +46,13 @@ def create_model(window, input_shape, num_actions,
     keras.models.Model
       The Q-model.
     """
-    pass
+    INPUT_SHAPE = window + input_shape;
+    inputs = Input(shape = INPUT_SHAPE);
+    outputs = Dense(num_actions, activation = 'softmax')(inputs);
+    model = Model(input = inputs, output = outputs);
+    return model;
+
+
 
 
 def get_output_folder(parent_dir, env_name):
@@ -90,7 +97,7 @@ def main():  # noqa: D103
     parser.add_argument('--env', default='Breakout-v0', help='Atari env name')
     parser.add_argument(
         '-o', '--output', default='atari-v0', help='Directory to save data to')
-    parser.add_argument('--seed', default=0, type=int, help='Random seed')
+    parser.add_argument('--seed', default=123, type=int, help='Random seed')
 
     args = parser.parse_args()
     args.input_shape = tuple(args.input_shape)
@@ -100,6 +107,22 @@ def main():  # noqa: D103
     # here is where you should start up a session,
     # create your DQN agent, create your model, etc.
     # then you can run your fit method.
+    env = gym.make(args.env_name)
+    np.random.seed(args.seed)
+    env.seed(args.seek);
+
+    input_shape = (84,84,1);
+
+    q_network = create_model(4, input_shape, num_actions, model_name='q_network')
+    memory = ReplayMemory();
+    policy = GreedyEpsilonPolicy();
+    preprocessor = Preprocessor();
+
+    dqn = DQNAgent(q_network, preprocessor, memory, policy);
+    dqn.compile(Adam(lr=.0001), mean_huber_loss)
+    dqn.fit(env, 5000000)
+    #dqn.save_weigth(weight_filename);
+    dpn.evaluate(env, nb_episodes = 10)
 
 if __name__ == '__main__':
     main()
