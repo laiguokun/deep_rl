@@ -3,7 +3,7 @@
 import argparse
 import os
 import random
-
+import gym
 import numpy as np
 import tensorflow as tf
 from keras.layers import (Activation, Convolution2D, Dense, Flatten, Input,
@@ -46,7 +46,8 @@ def create_model(window, input_shape, num_actions,
     keras.models.Model
       The Q-model.
     """
-    INPUT_SHAPE = window + input_shape;
+    INPUT_SHAPE = (window,) + input_shape;
+    INPUT_SHAPE = (np.prod(INPUT_SHAPE),);
     inputs = Input(shape = INPUT_SHAPE);
     outputs = Dense(num_actions, activation = 'softmax')(inputs);
     model = Model(input = inputs, output = outputs);
@@ -87,6 +88,7 @@ def get_output_folder(parent_dir, env_name):
             pass
     experiment_id += 1
 
+
     parent_dir = os.path.join(parent_dir, env_name)
     parent_dir = parent_dir + '-run{}'.format(experiment_id)
     return parent_dir
@@ -100,20 +102,18 @@ def main():  # noqa: D103
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
 
     args = parser.parse_args()
-    args.input_shape = tuple(args.input_shape)
+    args.input_shape = (84,84,1)
 
-    args.output = get_output_folder(args.output, args.env)
+    #args.output = get_output_folder(args.output, args.env)
 
     # here is where you should start up a session,
     # create your DQN agent, create your model, etc.
     # then you can run your fit method.
-    env = gym.make(args.env_name)
+    env = gym.make(args.env)
     np.random.seed(args.seed)
-    env.seed(args.seek);
-
-    input_shape = (84,84,1);
-
-    q_network = create_model(4, input_shape, num_actions, model_name='q_network')
+    env.seed(args.seed);
+    num_actions = env.action_space.n
+    q_network = create_model(4, args.input_shape, num_actions, model_name='q_network')
     memory = ReplayMemory();
     policy = GreedyEpsilonPolicy();
     preprocessor = Preprocessor();
@@ -122,7 +122,7 @@ def main():  # noqa: D103
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
     dqn.fit(env, 5000000)
     #dqn.save_weigth(weight_filename);
-    dpn.evaluate(env, nb_episodes = 10)
+    dqn.evaluate(env, 10)
 
 if __name__ == '__main__':
     main()
