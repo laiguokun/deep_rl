@@ -38,7 +38,7 @@ def get_uninitialized_variables(variables=None):
 
 
 def get_soft_target_model_updates(target, source, tau):
-    r"""Return list of target model update ops.
+    """Return list of target model update ops.
 
     These are soft target updates. Meaning that the target values are
     slowly adjusted, rather than directly copied over from the source
@@ -64,7 +64,13 @@ def get_soft_target_model_updates(target, source, tau):
     list(tf.Tensor)
       List of tensor update ops.
     """
-    pass
+    target_weights = target.trainable_weights + sum([l.non_trainable_weights for l in target.layers], [])
+    source_weights = source.trainable_weights + sum([l.non_trainable_weights for l in source.layers], [])
+    updates = [];
+    for tw, sw in zip(target_weights, source_weights):
+        updates.append((tw, tau * sw + (1. - tau) * tw))
+    return updates
+
 
 
 def get_hard_target_model_updates(target, source):
@@ -85,4 +91,13 @@ def get_hard_target_model_updates(target, source):
     list(tf.Tensor)
       List of tensor update ops.
     """
-    pass
+    return get_soft_target_model_updates(target, source, 1);
+
+def clone_model(model):
+    config = {
+        'class_name': model.__class__.__name__,
+        'config': model.get_config(),
+    }
+    clone = model_from_config(config)
+    clone.set_weights(model.get_weights())
+    return clone

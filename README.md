@@ -1,1 +1,1 @@
-writing ReplayMemory.Sample 
+finish dqn.complie

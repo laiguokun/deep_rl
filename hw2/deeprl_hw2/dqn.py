@@ -1,4 +1,5 @@
 """Main DQN agent."""
+from utils import *;
 
 class DQNAgent:
     """Class implementing DQN.
@@ -43,6 +44,7 @@ class DQNAgent:
                  preprocessor,
                  memory,
                  policy,
+                 nb_actions,
                  gamma = 0.99,
                  target_update_freq = 10000,
                  num_burn_in = 1000,
@@ -53,6 +55,7 @@ class DQNAgent:
         self.preprocessor = preprocessor;
         self.memory = memory;
         self.policy = policy;
+        self.nb_actions = nb_actions;
         self.gamma = gamma;
         self.target_update_freq = target_update_freq;
         self.num_burn_in = num_burn_in;
@@ -76,7 +79,14 @@ class DQNAgent:
         keras.optimizers.Optimizer class. Specifically the Adam
         optimizer.
         """
-        pass
+        self.target_model = clone_model(self.q_network);
+        self.target_model.compile(optimizer='sgd', loss=loss_func);
+        y_pred = self.model.output;
+        y_true = Input(name='y_true', shape=(self.nb_actions,));
+        loss = loss_func(y_pred, y_true);
+        self.trainable_model = Model(input=[self.q_network.input,y_true], output = loss, )
+        self.trainable_model.compile(optimizer=optimizer, loss=loss);
+
 
     def calc_q_values(self, state):
         """Given a state (or batch of states) calculate the Q-values.

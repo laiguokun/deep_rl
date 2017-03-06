@@ -112,13 +112,13 @@ def main():  # noqa: D103
     env = gym.make(args.env)
     np.random.seed(args.seed)
     env.seed(args.seed);
-    num_actions = env.action_space.n
-    q_network = create_model(4, args.input_shape, num_actions, model_name='q_network')
+    nb_actions = env.action_space.n
+    q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
     memory = ReplayMemory();
     policy = GreedyEpsilonPolicy();
     preprocessor = Preprocessor();
 
-    dqn = DQNAgent(q_network, preprocessor, memory, policy);
+    dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions);
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
     dqn.fit(env, 5000000)
     #dqn.save_weigth(weight_filename);
