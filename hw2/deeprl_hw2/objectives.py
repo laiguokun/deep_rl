@@ -48,6 +48,6 @@ def mean_huber_loss(y_true, y_pred, max_grad=1.):
     tf.Tensor
       The mean huber loss.
     """
-    loss = tf.pow(tf.maximum(tf.abs(y_true, y_pred),max_grad),2);
-    loss = 0.5 * tf.mean(loss);
+    loss = tf.pow(tf.maximum(tf.abs(y_true-y_pred),max_grad),2);
+    loss = 0.5 * tf.reduce_mean(loss);
     return loss;

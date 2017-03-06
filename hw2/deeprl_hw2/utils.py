@@ -2,7 +2,7 @@
 
 import semver
 import tensorflow as tf
-
+from keras.models import model_from_config
 
 def get_uninitialized_variables(variables=None):
     """Return a list of uninitialized tf variables.

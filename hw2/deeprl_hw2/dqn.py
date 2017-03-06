@@ -1,5 +1,7 @@
 """Main DQN agent."""
 from utils import *;
+from keras.layers import Lambda, Input, merge, Layer, Dense
+from keras.models import Model
 
 class DQNAgent:
     """Class implementing DQN.
@@ -81,11 +83,15 @@ class DQNAgent:
         """
         self.target_model = clone_model(self.q_network);
         self.target_model.compile(optimizer='sgd', loss=loss_func);
-        y_pred = self.model.output;
+        y_pred = self.q_network.output;
         y_true = Input(name='y_true', shape=(self.nb_actions,));
-        loss = loss_func(y_pred, y_true);
-        self.trainable_model = Model(input=[self.q_network.input,y_true], output = loss, )
-        self.trainable_model.compile(optimizer=optimizer, loss=loss);
+	
+	def loss_f(args):
+	    y_true, y_pred = args;
+	    return loss_func(y_true, y_pred);
+        loss = Lambda(loss_f, output_shape=(1,), name='loss')([y_true, y_pred]);
+        self.trainable_model = Model(input=[self.q_network.input,y_true], output=[loss,y_pred])
+        self.trainable_model.compile(optimizer=optimizer, loss=loss_func);
 
 
     def calc_q_values(self, state):
