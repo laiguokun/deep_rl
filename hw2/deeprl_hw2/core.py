@@ -32,7 +32,14 @@ class Sample:
     is_terminal: boolean
       True if this action finished the episode. False otherwise.
     """
-    pass
+    def __init__(self, s1, a, r, s2, is_terminal):
+      self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
+      self.is_terminal = is_terminal;
+
+    def new_sample(self, s1, a, r, s2, is_terminal):
+      self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
+      self.is_terminal = is_terminal;      
+
 
 
 class Preprocessor:
@@ -207,15 +214,42 @@ class ReplayMemory:
         """
         self.max_size = max_size;
         self.window_length = window_length
+        #self.head = 0;
+        self.tail = 0;
+        self.list = [];
+        self.full = 0;    #record whether the memory is full
+        for i in range(max_size):
+          self.list.append(Sample(0,0,0,0,0));
 
-    def append(self, state, action, reward):
-        raise NotImplementedError('This method should be overridden')
+    #increase tail
+    def inc_tail(self):
+        if (self.tail == self.max_size):
+            self.tail = -1;
+            self.full = 1;
+        self.tail += 1;
+        '''
+        if (self.tail == head):
+            if (self.head == self.max_size):
+                self.head += -1;
+            self.head +=1;
+        '''
+
+    def append(self, state, action, reward, state2, is_terminal):
+        self.inc_tail();
+        self.list[tail].new_sample(state, action, reward, state2, is_terminal)
+
+        #raise NotImplementedError('This method should be overridden')
 
     def end_episode(self, final_state, is_terminal):
         raise NotImplementedError('This method should be overridden')
 
     def sample(self, batch_size, indexes=None):
-        raise NotImplementedError('This method should be overridden')
+        if (self.full == 1):
+            
+
+        #raise NotImplementedError('This method should be overridden')
 
     def clear(self):
-        raise NotImplementedError('This method should be overridden')
+        #self.head = 0;
+        self.tail = 0;
+        #raise NotImplementedError('This method should be overridden')
