@@ -1,5 +1,5 @@
 """Core classes."""
-
+import numpy as np;
 
 
 class Sample:
@@ -245,7 +245,10 @@ class ReplayMemory:
 
     def sample(self, batch_size, indexes=None):
         if (self.full == 1):
-            
+            indexes = np.random.randint(0, max_size, size = batch_size);
+        else:
+            indexes = np.random.randint(0, tail, size = batch_size);
+        return self.list[indexes];
 
         #raise NotImplementedError('This method should be overridden')
 

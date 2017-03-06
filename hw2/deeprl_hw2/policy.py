@@ -109,7 +109,12 @@ class GreedyEpsilonPolicy(Policy):
           The action index chosen.
         """
 
-    pass
+        nb_actions = q_values.shape[0];
+        if (np.random.uniform() < self.epsilon):
+            action = np.random.randint(0, nb_actions)
+        else:
+            action = np.argmax(q_values);
+        return action;
 
 
 class LinearDecayGreedyEpsilonPolicy(Policy):
