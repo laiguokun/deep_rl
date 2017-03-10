@@ -2,6 +2,7 @@
 from utils import *;
 from keras.layers import Lambda, Input, merge, Layer, Dense
 from keras.models import Model
+from copy import deepcopy
 
 class DQNAgent:
     """Class implementing DQN.
@@ -63,6 +64,7 @@ class DQNAgent:
         self.num_burn_in = num_burn_in;
         self.train_freq = train_freq;
         self.batch_size = batch_size;
+        self.count = 0;
 
     def compile(self, optimizer, loss_func):
         """Setup all of the TF graph variables/ops.
@@ -85,13 +87,21 @@ class DQNAgent:
         self.target_model.compile(optimizer='sgd', loss=loss_func);
         y_pred = self.q_network.output;
         y_true = Input(name='y_true', shape=(self.nb_actions,));
-	
-	def loss_f(args):
-	    y_true, y_pred = args;
-	    return loss_func(y_true, y_pred);
-        loss = Lambda(loss_f, output_shape=(1,), name='loss')([y_true, y_pred]);
-        self.trainable_model = Model(input=[self.q_network.input,y_true], output=[loss,y_pred])
-        self.trainable_model.compile(optimizer=optimizer, loss=loss_func);
+	    mask = Input(name='mask', shape=(self.nb_actions,))
+
+	    def loss_f(args):
+	       y_true, y_pred, mask = args;
+	       return loss_func(y_true, y_pred) * mask;
+
+        loss = Lambda(loss_f, output_shape=(1,), name='loss')([y_true, y_pred, mask]);
+        self.trainable_model = Model(input=[self.q_network.input, y_true, mask], output=[loss])
+
+        loss_for_model = [
+            lambda y_true, y_pred: y_pred,  # loss is in output
+            #lambda y_true, y_pred: K.zeros_like(y_pred),  # only use for debugging
+        ]
+
+        self.trainable_model.compile(optimizer=optimizer, loss=loss_for_model);
 
 
     def calc_q_values(self, state):
@@ -103,7 +113,8 @@ class DQNAgent:
         ------
         Q-values for the state(s)
         """
-        pass
+        q_values = self.model.predict_on_batch(state);
+        return q_values;
 
     def select_action(self, state, **kwargs):
         """Select the action based on the current state.
@@ -126,7 +137,9 @@ class DQNAgent:
         --------
         selected action
         """
-        pass
+        q_values = self.calc_q_values(state);
+        action = self.policy.select_action(q_values=q_values);
+        return action;
 
     def update_policy(self):
         """Update your policy.
@@ -144,6 +157,44 @@ class DQNAgent:
         output. They can help you monitor how training is going.
         """
         pass
+
+    def append_memory(self, observation, action, reward):
+        # add an observation to the replay memory
+        self.state = self.preprocessor.new_observation(observation);
+        self.memory.append(self.prev_state, action, reward, self.state, is_terminal);
+
+    def training(self):
+        if self.count < self.num_burn_in:
+            return;
+        experiences = self.memory.sample(self.batch_size);
+        s1_batch = [];
+        reward_batch = [];
+        action_batch = [];
+        s2_batch = []
+        for item in experiences:
+            s1_batch.append(item.s1);
+            s2_batch.append(item.s2);
+            reward_batch.append(item.r);
+            action_batch.append(item.a);
+
+        s1_batch = np.asarray(s1_batch);
+        s2_batch = np.asarray(s2_batch);
+        reward_batch = np.asarray(reward_batch);
+        action_batch = np.asarray(action_batch);
+        qstar_values = self.target_model.predict_on_batch(s1_batch);
+        qstar_batch = np.max(qstar_values, axis=1);
+        R = reward + self.gamma * qstar_batch
+        y_true = np.zeros((self.batch_size, self.nb_actions));
+        mask = np.zeros((self.batch_size, self.nb_actions));
+        for i in range(self.batch_size):
+            y_true[i][action_batch[i]] = R[i];
+            mask[i][action_batch[i]] = R[i];
+
+        res = self.trainable_model.train_on_batch([s1_batch, y_true, mask], [R])
+        if (self.count & self.target_update_freq == 0):
+            get_hard_target_model_updates(self.target_model, self.model);
+        
+
 
     def fit(self, env, num_iterations, max_episode_length=None):
         """Fit your model to the provided environment.
@@ -170,7 +221,36 @@ class DQNAgent:
           How long a single episode should last before the agent
           resets. Can help exploration.
         """
-        pass
+
+        self.count = 0 #number of iteration
+
+        observation = None;
+        reward = None;
+        step = None;
+        self.preprocessor.clear();
+        episode = 0;
+        while (self.count < num_iterations):
+            if (observation is None): # start a new episode
+                step = 0;
+                reward = 0.;
+                observation = deepcopy(env.reset());
+                self.state = self.preprocessor.reset(observation);
+
+            action = self.action_from_state(observation);
+            self.prev_state = self.state;
+            observation, r, is_terminal, info = env.step(action);
+            observation = deepcopy(observation);
+            reward += r;
+            self.append_memory(observation, action, r, is_terminal);
+            self.training();
+            self.count += 1;
+
+            if (is_terminal):
+                observation = None;
+                episode +=1;
+
+
+
 
     def evaluate(self, env, num_episodes, max_episode_length=None):
         """Test your agent with a provided environment.

@@ -113,6 +113,9 @@ class AtariPreprocessor(Preprocessor):
         """Clip reward between -1 and 1."""
         pass
 
+    def reset(self, state):
+        """reset the preprocessor, return the initial state"""
+
 
 class PreprocessorSequence(Preprocessor):
     """You may find it useful to stack multiple prepcrocesosrs (such as the History and the AtariPreprocessor).

@@ -102,7 +102,7 @@ def main():  # noqa: D103
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
 
     args = parser.parse_args()
-    args.input_shape = (84,84,1)
+    args.input_shape = (84,84,4)
 
     #args.output = get_output_folder(args.output, args.env)
 
