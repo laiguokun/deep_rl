@@ -16,6 +16,7 @@ from deeprl_hw2.dqn import DQNAgent
 from deeprl_hw2.objectives import mean_huber_loss
 from deeprl_hw2.core import *
 from deeprl_hw2.policy import *
+from deeprl_hw2.preprocessor import *;
 
 def create_model(window, input_shape, num_actions,
                  model_name='q_network'):  # noqa: D103
@@ -116,11 +117,11 @@ def main():  # noqa: D103
     q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
     memory = ReplayMemory();
     policy = GreedyEpsilonPolicy();
-    preprocessor = Preprocessor();
+    preprocessor = HistoryPreprocessor();
 
     dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions);
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
-    dqn.fit(env, 5000000)
+    dqn.fit(env, 100)
     #dqn.save_weigth(weight_filename);
     dqn.evaluate(env, 10)
 

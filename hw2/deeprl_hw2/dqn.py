@@ -160,7 +160,7 @@ class DQNAgent:
 
     def append_memory(self, observation, action, reward):
         # add an observation to the replay memory
-        self.state = self.preprocessor.new_observation(observation);
+        self.state = self.preprocessor.process_state_for_memory(observation);
         self.memory.append(self.prev_state, action, reward, self.state, is_terminal);
 
     def training(self):
@@ -178,7 +178,9 @@ class DQNAgent:
             action_batch.append(item.a);
 
         s1_batch = np.asarray(s1_batch);
+        s1_batch = self.preprocessor.process_batch(s1_batch);
         s2_batch = np.asarray(s2_batch);
+        s2_batch = self.preprocessor.process_batch(s2_batch);
         reward_batch = np.asarray(reward_batch);
         action_batch = np.asarray(action_batch);
         qstar_values = self.target_model.predict_on_batch(s1_batch);
