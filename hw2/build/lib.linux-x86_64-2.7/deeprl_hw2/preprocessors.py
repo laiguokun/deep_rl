@@ -23,33 +23,19 @@ class HistoryPreprocessor(Preprocessor):
 
     """
 
-    def __init__(self, new_size, history_length=1):
-        self.frame_size = new_size;
-        self.history_length = history_length
-        self.history = [np.zeros(self.frame_size) for i in range(self.history_length)];
-        self.index = 0;
-        
+    def __init__(self, history_length=1):
+        pass
 
-    def process_state_for_memory(self, state):
+    def process_state_for_network(self, state):
         """You only want history when you're deciding the current action to take."""
-        self.history[self.index] = state;
-        self.index += 1;
-        if (self.index == self.history_length):
-            self.index = 0;
-        state = [];
-        for i in range(self.history_length):
-            x = (self.index + i) % self.history_length;
-            state.append(self.history[x]);
-        return np.asarray(state);
+        pass
 
     def reset(self):
         """Reset the history sequence.
 
         Useful when you start a new episode.
         """
-        self.history = [np.zeros(self.frame_size) for i in range(self.history_length)]
-        self.index = 0;
-        
+        pass
 
     def get_config(self):
         return {'history_length': self.history_length}
@@ -92,7 +78,7 @@ class AtariPreprocessor(Preprocessor):
     """
 
     def __init__(self, new_size):
-        self.frame_shape = new_size;
+        pass
 
     def process_state_for_memory(self, state):
         """Scale, convert to greyscale and store as uint8.
@@ -104,13 +90,7 @@ class AtariPreprocessor(Preprocessor):
         We recommend using the Python Image Library (PIL) to do the
         image conversions.
         """
-        image = Image.fromarray(state);
-        image = image.resize(self.frame_shape);
-        image = image.convert("L");
-        res = np.array(img).astype(np.uint8);
-        return res;
-
-        
+        pass
 
     def process_state_for_network(self, state):
         """Scale, convert to greyscale and store as float32.
@@ -127,12 +107,11 @@ class AtariPreprocessor(Preprocessor):
         samples from the replay memory. Meaning you need to convert
         both state and next state values.
         """
-        return samples.astype('float32')/255.
+        pass
 
     def process_reward(self, reward):
         """Clip reward between -1 and 1."""
         pass
-
 
 
 class PreprocessorSequence(Preprocessor):
@@ -148,17 +127,5 @@ class PreprocessorSequence(Preprocessor):
     state = atari.process_state_for_network(state)
     return history.process_state_for_network(state)
     """
-    def __init__(self, new_size, history_length):
-        self.atari = AtariPreprocessor(new_size);
-        self.history = HistoryPreprocessor(new_size,history_length);
-
-    def process_state_for_memory(self, state):
-        state = self.atari.process_state_for_memory(state);
-        return self.history.process_state_for_memory(state);
-
-    def reset(self):
-        self.history.reset();
-
-    def process_batch(self, samples):
-        return self.atari.process_batch(samples);
-
+    def __init__(self, preprocessors):
+        pass

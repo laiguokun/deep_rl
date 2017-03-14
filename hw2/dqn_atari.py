@@ -11,12 +11,12 @@ from keras.layers import (Activation, Convolution2D, Dense, Flatten, Input,
 from keras.models import Model
 from keras.optimizers import Adam
 
-import deeprl_hw2 as tfrl
+#import deeprl_hw2 as tfrl
 from deeprl_hw2.dqn import DQNAgent
 from deeprl_hw2.objectives import mean_huber_loss
 from deeprl_hw2.core import *
 from deeprl_hw2.policy import *
-from deeprl_hw2.preprocessor import *;
+from deeprl_hw2.preprocessors import *;
 
 def create_model(window, input_shape, num_actions,
                  model_name='q_network'):  # noqa: D103
@@ -103,7 +103,7 @@ def main():  # noqa: D103
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
 
     args = parser.parse_args()
-    args.input_shape = (84,84,4)
+    args.input_shape = (4, 84, 84)
 
     #args.output = get_output_folder(args.output, args.env)
 
@@ -117,7 +117,7 @@ def main():  # noqa: D103
     q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
     memory = ReplayMemory();
     policy = GreedyEpsilonPolicy();
-    preprocessor = HistoryPreprocessor();
+    preprocessor = HistoryPreprocessor((84,84),4);
 
     dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions);
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
