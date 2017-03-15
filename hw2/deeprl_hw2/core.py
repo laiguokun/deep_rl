@@ -33,12 +33,12 @@ class Sample:
       True if this action finished the episode. False otherwise.
     """
     def __init__(self, s1, a, r, s2, is_terminal):
-      self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
-      self.is_terminal = is_terminal;
+        self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
+        self.is_terminal = is_terminal;
 
     def new_sample(self, s1, a, r, s2, is_terminal):
-      self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
-      self.is_terminal = is_terminal;      
+        self.s1 = s1; self.s2 = s2; self.a = a; self.r = r;
+        self.is_terminal = is_terminal;      
 
 
 
@@ -213,13 +213,14 @@ class ReplayMemory:
         index where the next sample should be inserted in the list.
         """
         self.max_size = max_size;
+        print(max_size);
         self.window_length = window_length
         #self.head = 0;
         self.tail = 0;
         self.list = [];
         self.full = 0;    #record whether the memory is full
         for i in range(max_size):
-          self.list.append(Sample(0,0,0,0,0));
+            self.list.append(Sample(0,0,0,0,0));
 
     #increase tail
     def inc_tail(self):
@@ -235,9 +236,8 @@ class ReplayMemory:
         '''
 
     def append(self, state, action, reward, state2, is_terminal):
+        self.list[self.tail].new_sample(state, action, reward, state2, is_terminal)
         self.inc_tail();
-        self.list[tail].new_sample(state, action, reward, state2, is_terminal)
-
         #raise NotImplementedError('This method should be overridden')
 
     def end_episode(self, final_state, is_terminal):
@@ -247,8 +247,10 @@ class ReplayMemory:
         if (self.full == 1):
             indexes = np.random.randint(0, max_size, size = batch_size);
         else:
-            indexes = np.random.randint(0, tail, size = batch_size);
-        return self.list[indexes];
+            indexes = np.random.randint(0, self.tail, size = batch_size);
+        #print(indexes);
+        experience = [self.list[indexes[i]] for i in range(batch_size)]
+        return experience
 
         #raise NotImplementedError('This method should be overridden')
 

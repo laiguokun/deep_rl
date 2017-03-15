@@ -18,7 +18,7 @@ from deeprl_hw2.core import *
 from deeprl_hw2.policy import *
 from deeprl_hw2.preprocessors import *;
 
-def create_model(window, input_shape, num_actions,
+def create_model(window, input_shape, nb_actions,
                  model_name='q_network'):  # noqa: D103
     """Create the Q-network model.
 
@@ -47,10 +47,11 @@ def create_model(window, input_shape, num_actions,
     keras.models.Model
       The Q-model.
     """
+    #print(nb_actions);
     INPUT_SHAPE = (window,) + input_shape;
     INPUT_SHAPE = (np.prod(INPUT_SHAPE),);
     inputs = Input(shape = INPUT_SHAPE);
-    outputs = Dense(num_actions, activation = 'softmax')(inputs);
+    outputs = Dense(nb_actions, activation = 'softmax')(inputs);
     model = Model(input = inputs, output = outputs);
     return model;
 
@@ -97,13 +98,13 @@ def get_output_folder(parent_dir, env_name):
 
 def main():  # noqa: D103
     parser = argparse.ArgumentParser(description='Run DQN on Atari Breakout')
-    parser.add_argument('--env', default='Breakout-v0', help='Atari env name')
+    parser.add_argument('--env', default='SpaceInvaders-v0', help='Atari env name')
     parser.add_argument(
         '-o', '--output', default='atari-v0', help='Directory to save data to')
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
 
     args = parser.parse_args()
-    args.input_shape = (4, 84, 84)
+    args.input_shape = (84, 84)
 
     #args.output = get_output_folder(args.output, args.env)
 
@@ -117,11 +118,11 @@ def main():  # noqa: D103
     q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
     memory = ReplayMemory();
     policy = GreedyEpsilonPolicy();
-    preprocessor = HistoryPreprocessor((84,84),4);
+    preprocessor = PreprocessorSequence((84,84),4);
 
     dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions);
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
-    dqn.fit(env, 100)
+    dqn.fit(env, 5000000)
     #dqn.save_weigth(weight_filename);
     dqn.evaluate(env, 10)
 

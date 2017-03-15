@@ -40,7 +40,11 @@ class HistoryPreprocessor(Preprocessor):
         for i in range(self.history_length):
             x = (self.index + i) % self.history_length;
             state.append(self.history[x]);
-        return np.asarray(state);
+            #print(state[i].shape);
+        state = np.asarray(state);
+        #print(self.frame_size);
+        #print(state.shape);
+        return state.flatten();
 
     def reset(self):
         """Reset the history sequence.
@@ -105,10 +109,10 @@ class AtariPreprocessor(Preprocessor):
         image conversions.
         """
         image = Image.fromarray(state);
-        image = image.resize(self.frame_shape);
-        image = image.convert("L");
-        res = np.array(img).astype(np.uint8);
-        return res;
+        image = image.resize(self.frame_shape).convert("L");
+        state = np.array(image).astype(np.uint8);
+        #print("atari", res.shape);
+        return state;
 
         
 
