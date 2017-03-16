@@ -68,6 +68,7 @@ class DQNAgent:
         self.batch_size = batch_size;
         self.count = 0;
         self.output = 0;
+        self.eval_preprocessor = deepcopy(preprocessor);
 
     def compile(self, optimizer, loss_func):
         """Setup all of the TF graph variables/ops.
@@ -292,4 +293,22 @@ class DQNAgent:
         s1_batch = self.preprocessor.process_batch(s1_batch);
         s2_batch = np.asarray(s2_batch);
         '''
-        s2_batch = self.preprocessor.process_batch(s2_batch);
+        R = 0;
+        for episode in range(num_episodes):
+            r = 0;
+            step = 0;
+            state = None;
+            observation = deepcopy(env.reset());
+            self.eval_preprocessor.reset();
+            state = self.eval_preprocessor.process_state_for_memory(observation);
+            is_terminal = False;
+            while not is_terminal:
+                action = self.select_action(state);
+                observation, reward, is_terminal, info = env.step(action);
+                observation = deepcopy(observation);
+                state = self.eval_preprocessor.process_state_for_memory(observation);
+                r += reward;
+                step += 1;
+            R += r;
+        return R/num_episodes;
+
