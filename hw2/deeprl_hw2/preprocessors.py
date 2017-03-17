@@ -42,9 +42,8 @@ class HistoryPreprocessor(Preprocessor):
             state.append(self.history[x]);
             #print(state[i].shape);
         state = np.asarray(state);
-        #print(self.frame_size);
-        #print(state.shape);
-        return state.flatten();
+        #state = np.swapaxes(state,0,1).swapaxes(state,1,2);
+        return state;
 
     def reset(self):
         """Reset the history sequence.

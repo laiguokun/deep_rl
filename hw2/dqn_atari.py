@@ -4,10 +4,14 @@ import argparse
 import os
 import random
 import gym
+from gym import wrappers
 import numpy as np
 import tensorflow as tf
+import keras.backend as K
 from keras.layers import (Activation, Convolution2D, Dense, Flatten, Input,
-                          Permute)
+                          Permute,Lambda)
+#from keras.layers.convolutional import Conv2D
+from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.optimizers import Adam
 
@@ -49,9 +53,36 @@ def create_model(window, input_shape, nb_actions,
     """
     #print(nb_actions);
     INPUT_SHAPE = (window,) + input_shape;
-    INPUT_SHAPE = (np.prod(INPUT_SHAPE),);
     inputs = Input(shape = INPUT_SHAPE);
-    outputs = Dense(nb_actions, activation = 'softmax')(inputs);
+    #Linear model
+    '''
+    flatten = Flatten()(inputs);
+    outputs = Dense(nb_actions, activation = 'linear')(flatten);
+    model = Model(input = inputs, output = outputs);
+    '''
+    #DQN
+    permute = Permute((2,3,1), input_shape = input_shape)(inputs);
+    #conv1 = Conv2D(filters = 32, kernel_size = (8,8), strides = 4, activation='relu')(permute);
+    #act1 = Activation('relu')(conv1);
+    #conv2 = Conv2D(filters = 64, kernel_size = (4,4), strides = 2, activation='relu')(conv1);
+    #act2 = Activation('relu')(conv2);
+    #conv3 = Conv2D(filters = 64, kernel_size = (3,3), strides = 1, activation='relu')(conv2);
+    #act3 = Activation('relu')(conv3);
+    conv1 = Convolution2D(32, 8,8, subsample = (4, 4), activation='relu')(permute);
+    norm1 = BatchNormalization(1)(conv1)
+    conv2 = Convolution2D(64, 4,4, subsample = (2, 2), activation='relu')(norm1);
+    norm2 = BatchNormalization(1)(conv2)
+    conv3 = Convolution2D(64, 3,3, subsample = (1, 1), activation='relu')(norm2);
+    norm3 = BatchNormalization(1)(conv3)
+    faltten = Flatten()(norm3);
+    den1 = Dense(512,activation='relu')(faltten);
+    #DQN
+    '''
+    outputs = Dense(nb_actions, activation = 'linear')(den1);
+    '''
+    #DQN DUELING
+    qtmp = Dense(nb_actions + 1, activation = 'linear')(den1);
+    outputs = Lambda(lambda x : K.expand_dims(x[:,0], dim=-1) + x[:,1:] - K.mean(x[:, 1:], keepdims=True),output_shape=(nb_actions,))(qtmp);
     model = Model(input = inputs, output = outputs);
     return model;
 
@@ -112,6 +143,7 @@ def main():  # noqa: D103
     # create your DQN agent, create your model, etc.
     # then you can run your fit method.
     env = gym.make(args.env)
+    env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-1',force=True)
     np.random.seed(args.seed)
     env.seed(args.seed);
     nb_actions = env.action_space.n
@@ -120,11 +152,13 @@ def main():  # noqa: D103
     policy = GreedyEpsilonPolicy();
     preprocessor = PreprocessorSequence((84,84),4);
 
-    dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions);
+    dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=50000, enable_double_dqn = True);
     dqn.compile(Adam(lr=.0001), mean_huber_loss)
     dqn.fit(env, 5000000)
-    #dqn.save_weigth(weight_filename);
-    dqn.evaluate(env, 10)
+    dqn.evaluate(env, 100)
+    env.close()
+    gym.upload('tmp/SpaceInvader-experiment-1', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
+    q_network.save('dqn_cnn.h5')
 
 if __name__ == '__main__':
     main()

@@ -228,12 +228,6 @@ class ReplayMemory:
             self.tail = -1;
             self.full = 1;
         self.tail += 1;
-        '''
-        if (self.tail == head):
-            if (self.head == self.max_size):
-                self.head += -1;
-            self.head +=1;
-        '''
 
     def append(self, state, action, reward, state2, is_terminal):
         self.list[self.tail].new_sample(state, action, reward, state2, is_terminal)

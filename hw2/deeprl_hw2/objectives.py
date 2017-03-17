@@ -2,6 +2,7 @@
 
 import tensorflow as tf
 import semver
+import keras.backend as K
 
 
 def huber_loss(y_true, y_pred, max_grad=1.):
@@ -48,6 +49,10 @@ def mean_huber_loss(y_true, y_pred, max_grad=1.):
     tf.Tensor
       The mean huber loss.
     """
-    loss = tf.pow(tf.maximum(tf.abs(y_true-y_pred),max_grad),2);
-    loss = 0.5 * tf.reduce_mean(loss);
+    x = y_true - y_pred
+    condition = K.abs(x) < max_grad
+    squared_loss = .5 * K.square(x)
+    linear_loss = max_grad * (K.abs(x) - .5 * max_grad)
+    loss = tf.select(condition, squared_loss, linear_loss);
+    loss = K.mean(loss);
     return loss;

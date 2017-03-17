@@ -5,6 +5,7 @@ from keras.models import Model
 from copy import deepcopy
 import tensorflow as tf
 import numpy as np;
+import keras.backend as K
 
 class DQNAgent:
     """Class implementing DQN.
@@ -52,9 +53,11 @@ class DQNAgent:
                  nb_actions,
                  gamma = 0.99,
                  target_update_freq = 10000,
-                 num_burn_in = 1000,
+                 num_burn_in = 50000,
                  train_freq = 1,
-                 batch_size = 32):
+                 batch_size = 32,
+                 enable_double_dqn = False,
+                 enable_double_dqn_hw = False):
 
         self.q_network = q_network;
         self.preprocessor = preprocessor;
@@ -68,7 +71,11 @@ class DQNAgent:
         self.batch_size = batch_size;
         self.count = 0;
         self.output = 0;
-        self.eval_preprocessor = deepcopy(preprocessor);
+        self.episode = 0;
+        self.enable_double_dqn = enable_double_dqn;
+        self.enable_double_dqn_hw = enable_double_dqn_hw;
+        self.eval_preprocessor = preprocessor;
+        self.trainable_target_model = None;
 
     def compile(self, optimizer, loss_func):
         """Setup all of the TF graph variables/ops.
@@ -89,6 +96,7 @@ class DQNAgent:
         """
         self.target_model = clone_model(self.q_network);
         self.target_model.compile(optimizer='sgd', loss=loss_func);
+        self.q_network.compile(optimizer='sgd', loss=loss_func);
         y_pred = self.q_network.output;
         y_true = Input(name='y_true', shape=(self.nb_actions,));
         mask = Input(name='mask', shape=(self.nb_actions,))
@@ -118,7 +126,7 @@ class DQNAgent:
         Q-values for the state(s)
         """
         q_values = self.q_network.predict_on_batch(np.asarray([state]));
-        return q_values;
+        return q_values.flatten();
 
     def select_action(self, state, **kwargs):
         """Select the action based on the current state.
@@ -183,8 +191,14 @@ class DQNAgent:
         s2_batch = self.preprocessor.process_batch(s2_batch);
         reward_batch = np.asarray(reward_batch);
         action_batch = np.asarray(action_batch);
-        qstar_values = self.target_model.predict_on_batch(s2_batch);
-        qstar_batch = np.max(qstar_values, axis=1);
+        if (self.enable_double_dqn):
+            q_value = self.q_network.predict_on_batch(s2_batch);
+            actions = np.argmax(q_value, axis = 1)
+            qstar_values = self.target_model.predict_on_batch(s2_batch);
+            qstar_batch = qstar_values[range(self.batch_size), actions];
+        else:
+            qstar_values = self.target_model.predict_on_batch(s2_batch);
+            qstar_batch = np.max(qstar_values, axis=1).flatten();
         R = reward_batch + self.gamma * qstar_batch
         y_true = np.zeros((self.batch_size, self.nb_actions));
         mask = np.zeros((self.batch_size, self.nb_actions));
@@ -197,7 +211,7 @@ class DQNAgent:
         if (self.count % 1000 == 0):
             print(self.count, self.output/1000);
             self.output = 0;
-        if (self.count % self.target_update_freq == 0):
+        if (self.count % self.target_update_freq == 0 and self.enable_double_dqn_hw == False):
             get_hard_target_model_updates(self.target_model, self.q_network);
         
 
@@ -227,18 +241,18 @@ class DQNAgent:
           How long a single episode should last before the agent
           resets. Can help exploration.
         """
-
-        self.count = 0 #number of iteration
+         #number of iteration
 
         observation = None;
-        reward = None;
+        R = None;
         step = None;
-        
-        episode = 0;
-        while (self.count < num_iterations):
+        #print('eval reward', self.evaluate(self.env, 5, 10000));        
+        is_terminal = False
+        cc = 0;
+        while (cc < num_iterations or not is_terminal):
             if (observation is None): # start a new episode
                 step = 0;
-                reward = 0.;
+                R = 0.;
                 observation = deepcopy(env.reset());
                 self.preprocessor.reset();
                 self.state = self.preprocessor.process_state_for_memory(observation);
@@ -246,6 +260,7 @@ class DQNAgent:
             action = self.select_action(self.state);
             self.prev_state = self.state;
             observation, reward, is_terminal, info = env.step(action);
+            R += reward;
             #print(is_terminal,reward);
             observation = deepcopy(observation);
             self.state = self.preprocessor.process_state_for_memory(observation);
@@ -253,12 +268,13 @@ class DQNAgent:
             self.memory.append(self.prev_state, action, reward, self.state, is_terminal);
             self.training();
             self.count += 1;
-
+            cc += 1;
             if (is_terminal):
                 observation = None;
-                episode +=1;
+                self.episode +=1;
+                print(R);
             if (self.count % 1000 ==0):
-                print(episode)
+                print(self.episode)
 
 
 
@@ -310,5 +326,6 @@ class DQNAgent:
                 r += reward;
                 step += 1;
             R += r;
+        print('eval result', R/num_episodes);
         return R/num_episodes;
 

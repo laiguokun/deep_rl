@@ -91,7 +91,7 @@ def get_hard_target_model_updates(target, source):
     list(tf.Tensor)
       List of tensor update ops.
     """
-    return get_soft_target_model_updates(target, source, 1);
+    target.set_weights(source.get_weights())
 
 def clone_model(model):
     config = {
