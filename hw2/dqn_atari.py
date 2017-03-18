@@ -77,12 +77,10 @@ def create_model(window, input_shape, nb_actions,
     faltten = Flatten()(conv3);
     den1 = Dense(512,activation='relu')(faltten);
     #DQN
-    '''
     outputs = Dense(nb_actions, activation = 'linear')(den1);
-    '''
     #DQN DUELING
-    qtmp = Dense(nb_actions + 1, activation = 'linear')(den1);
-    outputs = Lambda(lambda x : K.expand_dims(x[:,0], dim=-1) + x[:,1:] - K.mean(x[:, 1:], keepdims=True),output_shape=(nb_actions,))(qtmp);
+    #qtmp = Dense(nb_actions + 1, activation = 'linear')(den1);
+    #outputs = Lambda(lambda x : K.expand_dims(x[:,0], dim=-1) + x[:,1:] - K.mean(x[:, 1:], keepdims=True),output_shape=(nb_actions,))(qtmp);
     model = Model(input = inputs, output = outputs);
     return model;
 
@@ -133,7 +131,7 @@ def main():  # noqa: D103
     parser.add_argument(
         '-o', '--output', default='atari-v0', help='Directory to save data to')
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
-    with tf.device('gpu:3'):
+    with tf.device('gpu:2'):
         args = parser.parse_args()
         args.input_shape = (84, 84)
 
@@ -143,21 +141,23 @@ def main():  # noqa: D103
         # create your DQN agent, create your model, etc.
         # then you can run your fit method.
         env = gym.make(args.env)
-        env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-1',force=True)
+        env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-dqn',force=True)
         np.random.seed(args.seed)
         env.seed(args.seed);
         nb_actions = env.action_space.n
         q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
         memory = ReplayMemory(max_size = 1000000);
-        policy = GreedyEpsilonPolicy();
+        policy = LinearDecayGreedyEpsilonPolicy(GreedyEpsilonPolicy());
         preprocessor = PreprocessorSequence((84,84),4);
 
-        dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=5000, enable_double_dqn = True, enable_double_dqn_hw=False, reward_record=open('double_dqn_reward.txt','w'), loss_record=open('double_dqn_loss.txt','w')) ;
+        dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=5000, enable_double_dqn = False, enable_double_dqn_hw=False, reward_record=open('dqn_reward.txt','w'), loss_record=open('dqn_loss.txt','w')) ;
         dqn.compile(Adam(lr=.0001), mean_huber_loss)
-        dqn.fit(env, 5000000)
-        dqn.evaluate(env, 100)
+        for i in range(50):
+            dqn.fit(env, 100000)
+            dqn.evaluate(env, 20)
+        dqn.evaluate(env,100);
         env.close()
-        gym.upload('tmp/SpaceInvader-experiment-1', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
+        gym.upload('tmp/SpaceInvader-experiment-dqn', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
         q_network.save('dqn_cnn1.h5')
 
 if __name__ == '__main__':

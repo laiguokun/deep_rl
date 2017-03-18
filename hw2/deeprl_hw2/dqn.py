@@ -162,8 +162,7 @@ class DQNAgent:
         selected action
         """
         q_values = self.calc_q_values(state);
-        #print(q_values);
-        action = self.policy.select_action(q_values=q_values);
+        action = self.policy.select_action(self.training, self.count, q_values=q_values);
         return action;
 
     def update_policy(self):
@@ -268,7 +267,7 @@ class DQNAgent:
           resets. Can help exploration.
         """
          #number of iteration
-
+        self.training = True;
         observation = None;
         R = None;
         step = None;
@@ -300,14 +299,14 @@ class DQNAgent:
                 self.episode +=1;
                 print(self.episode)
                 if (self.reward_record != None):
-                    self.reward_record.write(str(R) + '\n');
+                    self.reward_record.write('training '+ str(R) + ' ' + str(self.count) + '\n');
                     self.reward_record.flush();
                 print(R);
 
 
 
 
-    def evaluate(self, env, num_episodes, max_episode_length=None):
+    def evaluate(self, env, num_episodes, policy = None, max_episode_length=None):
         """Test your agent with a provided environment.
         
         You shouldn't update your network parameters here. Also if you
@@ -337,7 +336,10 @@ class DQNAgent:
         s1_batch = self.preprocessor.process_batch(s1_batch);
         s2_batch = np.asarray(s2_batch);
         '''
+        self.training = False;
         R = 0;
+        if (policy == None):
+            policy = self.policy
         for episode in range(num_episodes):
             r = 0;
             step = 0;
@@ -355,7 +357,7 @@ class DQNAgent:
                 step += 1;
             R += r;
             if (self.reward_record != None):
-                self.reward_record.write(str(r) + '\n');
+                self.reward_record.write('evaluate ' + str(r) + ' ' + str(self.count) + '\n');
                 self.reward_record.flush();
         print('eval result', R/num_episodes);
         return R/num_episodes;
