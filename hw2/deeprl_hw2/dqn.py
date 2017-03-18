@@ -57,7 +57,9 @@ class DQNAgent:
                  train_freq = 1,
                  batch_size = 32,
                  enable_double_dqn = False,
-                 enable_double_dqn_hw = False):
+                 enable_double_dqn_hw = False,
+                 reward_record = None,
+                 loss_record = None):
 
         self.q_network = q_network;
         self.preprocessor = preprocessor;
@@ -76,6 +78,8 @@ class DQNAgent:
         self.enable_double_dqn_hw = enable_double_dqn_hw;
         self.eval_preprocessor = preprocessor;
         self.trainable_target_model = None;
+        self.reward_record = reward_record;
+        self.loss_record = loss_record;
 
     def compile(self, optimizer, loss_func):
         """Setup all of the TF graph variables/ops.
@@ -114,6 +118,14 @@ class DQNAgent:
         ]
 
         self.trainable_model.compile(optimizer=optimizer, loss=loss_for_model);
+        
+        if (self.enable_double_dqn_hw):
+            y_pred = self.target_model.output;
+
+            loss = Lambda(loss_f, output_shape=(1,), name='loss')([y_true, y_pred, mask]);
+            self.trainable_target_model = Model(input=[self.target_model.input, y_true, mask], output=[loss])
+
+            self.trainable_target_model.compile(optimizer=optimizer, loss=loss_for_model);
 
 
     def calc_q_values(self, state):
@@ -174,16 +186,25 @@ class DQNAgent:
     def training(self):
         if self.count < self.num_burn_in:
             return;
+        
+        if self.enable_double_dqn_hw:
+            r = np.random.random_sample;
+            if r < 0.5:
+                self.target_model, self.q_network = self.q_network, self.target_model;
+                self.trainable_target_model, self.trainable_model = self.trainable_model, self.trainable_target_model;
+                
         experiences = self.memory.sample(self.batch_size);
         s1_batch = [];
         reward_batch = [];
         action_batch = [];
+        terminal_batch = []
         s2_batch = []
         for item in experiences:
             s1_batch.append(item.s1);
             s2_batch.append(item.s2);
             reward_batch.append(item.r);
             action_batch.append(item.a);
+            terminal_batch.append(0. if item.is_terminal else 1.);
 
         s1_batch = np.asarray(s1_batch);
         s1_batch = self.preprocessor.process_batch(s1_batch);
@@ -191,6 +212,7 @@ class DQNAgent:
         s2_batch = self.preprocessor.process_batch(s2_batch);
         reward_batch = np.asarray(reward_batch);
         action_batch = np.asarray(action_batch);
+        terminal_batch = np.asarray(terminal_batch);
         if (self.enable_double_dqn):
             q_value = self.q_network.predict_on_batch(s2_batch);
             actions = np.argmax(q_value, axis = 1)
@@ -199,7 +221,8 @@ class DQNAgent:
         else:
             qstar_values = self.target_model.predict_on_batch(s2_batch);
             qstar_batch = np.max(qstar_values, axis=1).flatten();
-        R = reward_batch + self.gamma * qstar_batch
+            
+        R = reward_batch + self.gamma * qstar_batch * terminal_batch;
         y_true = np.zeros((self.batch_size, self.nb_actions));
         mask = np.zeros((self.batch_size, self.nb_actions));
         for i in range(self.batch_size):
@@ -210,6 +233,9 @@ class DQNAgent:
         self.output = self.output+res;
         if (self.count % 1000 == 0):
             print(self.count, self.output/1000);
+            if (self.loss_record != None):
+                self.loss_record.write(str(self.output/1000) + '\n');
+                self.loss_record.flush();
             self.output = 0;
         if (self.count % self.target_update_freq == 0 and self.enable_double_dqn_hw == False):
             get_hard_target_model_updates(self.target_model, self.q_network);
@@ -272,9 +298,11 @@ class DQNAgent:
             if (is_terminal):
                 observation = None;
                 self.episode +=1;
-                print(R);
-            if (self.count % 1000 ==0):
                 print(self.episode)
+                if (self.reward_record != None):
+                    self.reward_record.write(str(R) + '\n');
+                    self.reward_record.flush();
+                print(R);
 
 
 
@@ -326,6 +354,9 @@ class DQNAgent:
                 r += reward;
                 step += 1;
             R += r;
+            if (self.reward_record != None):
+                self.reward_record.write(str(r) + '\n');
+                self.reward_record.flush();
         print('eval result', R/num_episodes);
         return R/num_episodes;
 

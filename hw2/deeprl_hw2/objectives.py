@@ -54,5 +54,5 @@ def mean_huber_loss(y_true, y_pred, max_grad=1.):
     squared_loss = .5 * K.square(x)
     linear_loss = max_grad * (K.abs(x) - .5 * max_grad)
     loss = tf.select(condition, squared_loss, linear_loss);
-    loss = K.mean(loss);
+    loss = K.sum(loss);
     return loss;

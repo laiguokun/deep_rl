@@ -224,10 +224,10 @@ class ReplayMemory:
 
     #increase tail
     def inc_tail(self):
-        if (self.tail == self.max_size):
-            self.tail = -1;
-            self.full = 1;
         self.tail += 1;
+        if (self.tail == self.max_size):
+            self.tail = 0;
+            self.full = 1;
 
     def append(self, state, action, reward, state2, is_terminal):
         self.list[self.tail].new_sample(state, action, reward, state2, is_terminal)
@@ -239,7 +239,7 @@ class ReplayMemory:
 
     def sample(self, batch_size, indexes=None):
         if (self.full == 1):
-            indexes = np.random.randint(0, max_size, size = batch_size);
+            indexes = np.random.randint(0, self.max_size, size = batch_size);
         else:
             indexes = np.random.randint(0, self.tail, size = batch_size);
         #print(indexes);

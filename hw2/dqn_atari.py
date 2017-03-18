@@ -69,12 +69,12 @@ def create_model(window, input_shape, nb_actions,
     #conv3 = Conv2D(filters = 64, kernel_size = (3,3), strides = 1, activation='relu')(conv2);
     #act3 = Activation('relu')(conv3);
     conv1 = Convolution2D(32, 8,8, subsample = (4, 4), activation='relu')(permute);
-    norm1 = BatchNormalization(1)(conv1)
-    conv2 = Convolution2D(64, 4,4, subsample = (2, 2), activation='relu')(norm1);
-    norm2 = BatchNormalization(1)(conv2)
-    conv3 = Convolution2D(64, 3,3, subsample = (1, 1), activation='relu')(norm2);
-    norm3 = BatchNormalization(1)(conv3)
-    faltten = Flatten()(norm3);
+    #norm1 = BatchNormalization(axis = 1)(conv1)
+    conv2 = Convolution2D(64, 4,4, subsample = (2, 2), activation='relu')(conv1);
+    #norm2 = BatchNormalization(axis = 1)(conv2)
+    conv3 = Convolution2D(64, 3,3, subsample = (1, 1), activation='relu')(conv2);
+    #norm3 = BatchNormalization(axis = 1)(conv3)
+    faltten = Flatten()(conv3);
     den1 = Dense(512,activation='relu')(faltten);
     #DQN
     '''
@@ -133,32 +133,32 @@ def main():  # noqa: D103
     parser.add_argument(
         '-o', '--output', default='atari-v0', help='Directory to save data to')
     parser.add_argument('--seed', default=123, type=int, help='Random seed')
+    with tf.device('gpu:3'):
+        args = parser.parse_args()
+        args.input_shape = (84, 84)
 
-    args = parser.parse_args()
-    args.input_shape = (84, 84)
+        #args.output = get_output_folder(args.output, args.env)
 
-    #args.output = get_output_folder(args.output, args.env)
+        # here is where you should start up a session,
+        # create your DQN agent, create your model, etc.
+        # then you can run your fit method.
+        env = gym.make(args.env)
+        env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-1',force=True)
+        np.random.seed(args.seed)
+        env.seed(args.seed);
+        nb_actions = env.action_space.n
+        q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
+        memory = ReplayMemory(max_size = 1000000);
+        policy = GreedyEpsilonPolicy();
+        preprocessor = PreprocessorSequence((84,84),4);
 
-    # here is where you should start up a session,
-    # create your DQN agent, create your model, etc.
-    # then you can run your fit method.
-    env = gym.make(args.env)
-    env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-1',force=True)
-    np.random.seed(args.seed)
-    env.seed(args.seed);
-    nb_actions = env.action_space.n
-    q_network = create_model(4, args.input_shape, nb_actions, model_name='q_network')
-    memory = ReplayMemory();
-    policy = GreedyEpsilonPolicy();
-    preprocessor = PreprocessorSequence((84,84),4);
-
-    dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=50000, enable_double_dqn = True);
-    dqn.compile(Adam(lr=.0001), mean_huber_loss)
-    dqn.fit(env, 5000000)
-    dqn.evaluate(env, 100)
-    env.close()
-    gym.upload('tmp/SpaceInvader-experiment-1', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
-    q_network.save('dqn_cnn.h5')
+        dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=5000, enable_double_dqn = True, enable_double_dqn_hw=False, reward_record=open('double_dqn_reward.txt','w'), loss_record=open('double_dqn_loss.txt','w')) ;
+        dqn.compile(Adam(lr=.0001), mean_huber_loss)
+        dqn.fit(env, 5000000)
+        dqn.evaluate(env, 100)
+        env.close()
+        gym.upload('tmp/SpaceInvader-experiment-1', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
+        q_network.save('dqn_cnn1.h5')
 
 if __name__ == '__main__':
     main()
