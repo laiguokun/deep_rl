@@ -273,6 +273,7 @@ class DQNAgent:
         step = None;
         #print('eval reward', self.evaluate(self.env, 5, 10000));        
         is_terminal = False
+        cc = 0;
         while (cc < num_iterations or not is_terminal):
             if (observation is None): # start a new episode
                 step = 0;
@@ -297,6 +298,7 @@ class DQNAgent:
             self.memory.append(self.prev_state, action, r, self.state, is_terminal);
             self.training();
             self.count += 1;
+            cc += 1;
             if (is_terminal):
                 observation = None;
                 self.episode +=1;
