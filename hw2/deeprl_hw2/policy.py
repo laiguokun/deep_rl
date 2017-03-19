@@ -160,10 +160,10 @@ class LinearDecayGreedyEpsilonPolicy(Policy):
         Any:
           Selected action.
         """
-        if (flag):
+        if (flag==False):
             value = self.test_value;
         else:
-            value = max(self.end_value, a * float(self.count) + b);
+            value = max(self.end_value, self.a * float(count) + self.b);
         self.policy.set_eps(value);
         return self.policy.select_action(**kwargs);
 

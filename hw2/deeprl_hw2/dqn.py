@@ -162,7 +162,7 @@ class DQNAgent:
         selected action
         """
         q_values = self.calc_q_values(state);
-        action = self.policy.select_action(self.training, self.count, q_values=q_values);
+        action = self.policy.select_action(self.train, self.count, q_values=q_values);
         return action;
 
     def update_policy(self):
@@ -267,7 +267,7 @@ class DQNAgent:
           resets. Can help exploration.
         """
          #number of iteration
-        self.training = True;
+        self.train = True;
         observation = None;
         R = None;
         step = None;
@@ -319,24 +319,7 @@ class DQNAgent:
         You can also call the render function here if you want to
         visually inspect your policy.
         """
-        '''
-        print(self.memory.tail);
-        experience = self.memory.sample(self.batch_size);
-        s1_batch = [];
-        reward_batch = [];
-        action_batch = [];
-        s2_batch = []
-        for item in experience:
-            s1_batch.append(item.s1);
-            s2_batch.append(item.s2);
-            reward_batch.append(item.r);
-            action_batch.append(item.a);
-
-        s1_batch = np.asarray(s1_batch);
-        s1_batch = self.preprocessor.process_batch(s1_batch);
-        s2_batch = np.asarray(s2_batch);
-        '''
-        self.training = False;
+        self.train = False;
         R = 0;
         if (policy == None):
             policy = self.policy
