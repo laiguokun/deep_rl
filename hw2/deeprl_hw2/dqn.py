@@ -241,7 +241,7 @@ class DQNAgent:
         
 
 
-    def fit(self, env, num_iterations, max_episode_length=None):
+    def fit(self, env, num_iterations, action_repete=1, max_episode_length=None):
         """Fit your model to the provided environment.
 
         Its a good idea to print out things like loss, average reward,
@@ -273,7 +273,6 @@ class DQNAgent:
         step = None;
         #print('eval reward', self.evaluate(self.env, 5, 10000));        
         is_terminal = False
-        cc = 0;
         while (cc < num_iterations or not is_terminal):
             if (observation is None): # start a new episode
                 step = 0;
@@ -281,19 +280,23 @@ class DQNAgent:
                 observation = deepcopy(env.reset());
                 self.preprocessor.reset();
                 self.state = self.preprocessor.process_state_for_memory(observation);
-
+            r = 0;
             action = self.select_action(self.state);
-            self.prev_state = self.state;
-            observation, reward, is_terminal, info = env.step(action);
-            R += reward;
-            #print(is_terminal,reward);
-            observation = deepcopy(observation);
-            self.state = self.preprocessor.process_state_for_memory(observation);
+            for _ in range(action_repetition):
+                self.prev_state = self.state;
+                observation, reward, is_terminal, info = env.step(action);
+                R += reward;
+                reward = self.preprocessor.process_reward(reward);
+                r += reward;
+                observation = deepcopy(observation);
+                self.state = self.preprocessor.process_state_for_memory(observation);
+                if is_terminal:
+                    break;
+                
             #if self.count < 1000:
-            self.memory.append(self.prev_state, action, reward, self.state, is_terminal);
+            self.memory.append(self.prev_state, action, r, self.state, is_terminal);
             self.training();
             self.count += 1;
-            cc += 1;
             if (is_terminal):
                 observation = None;
                 self.episode +=1;
@@ -306,7 +309,7 @@ class DQNAgent:
 
 
 
-    def evaluate(self, env, num_episodes, policy = None, max_episode_length=None):
+    def evaluate(self, env, num_episodes, action_repete = 1, policy = None, max_episode_length=None):
         """Test your agent with a provided environment.
         
         You shouldn't update your network parameters here. Also if you
@@ -333,11 +336,14 @@ class DQNAgent:
             is_terminal = False;
             while not is_terminal:
                 action = self.select_action(state);
-                observation, reward, is_terminal, info = env.step(action);
-                observation = deepcopy(observation);
-                state = self.eval_preprocessor.process_state_for_memory(observation);
-                r += reward;
-                step += 1;
+                for _ in range(action_repetition):
+                    observation, reward, is_terminal, info = env.step(action);
+                    observation = deepcopy(observation);
+                    state = self.eval_preprocessor.process_state_for_memory(observation);
+                    r += reward;
+                    step += 1;
+                    if is_terminal:
+                        break;
             R += r;
             if (self.reward_record != None):
                 self.reward_record.write('evaluate ' + str(r) + ' ' + str(self.count) + '\n');

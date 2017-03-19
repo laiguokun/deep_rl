@@ -3,7 +3,7 @@
 import numpy as np
 from PIL import Image
 
-from deeprl_hw2 import utils
+#from deeprl_hw2 import utils
 from deeprl_hw2.core import Preprocessor
 
 
@@ -134,7 +134,7 @@ class AtariPreprocessor(Preprocessor):
 
     def process_reward(self, reward):
         """Clip reward between -1 and 1."""
-        pass
+        return np.clip(reward, -1., 1.)
 
 
 
@@ -164,4 +164,7 @@ class PreprocessorSequence(Preprocessor):
 
     def process_batch(self, samples):
         return self.atari.process_batch(samples);
-
+    
+    
+    def process_reward(self, reward):
+        return self.atari.process_reward(reward);
