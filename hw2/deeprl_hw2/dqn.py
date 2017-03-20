@@ -281,10 +281,10 @@ class DQNAgent:
                 observation = deepcopy(env.reset());
                 self.preprocessor.reset();
                 self.state = self.preprocessor.process_state_for_memory(observation);
-            r = 0;
+            r = 0.;
             action = self.select_action(self.state);
-            for _ in range(action_repetition):
-                self.prev_state = self.state;
+            self.prev_state = self.state;
+            for _ in range(action_repete):
                 observation, reward, is_terminal, info = env.step(action);
                 R += reward;
                 reward = self.preprocessor.process_reward(reward);
@@ -338,7 +338,7 @@ class DQNAgent:
             is_terminal = False;
             while not is_terminal:
                 action = self.select_action(state);
-                for _ in range(action_repetition):
+                for _ in range(action_repete):
                     observation, reward, is_terminal, info = env.step(action);
                     observation = deepcopy(observation);
                     state = self.eval_preprocessor.process_state_for_memory(observation);
