@@ -1,0 +1,1606 @@
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcurand.so locally
+Using TensorFlow backend.
+[2017-03-17 19:59:39,610] Making new env: SpaceInvaders-v0
+[2017-03-17 19:59:39,654] DEPRECATION WARNING: env.spec.timestep_limit has been deprecated. Replace your call to `env.spec.timestep_limit` with `env.spec.tags.get('wrapper_config.TimeLimit.max_episode_steps')`. This change was made 12/28/2016 and is included in version 0.7.0
+[2017-03-17 19:59:39,654] Clearing 10 monitor files from previous run (because force=True was provided)
+1000000
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 0 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:02:00.0
+Total memory: 11.92GiB
+Free memory: 3.36GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x5f90460
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 1 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:04:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x6425bb0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 2 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:83:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x68b9e90
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 3 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:84:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:126] DMA: 0 1 2 3 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 0:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 1:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 2:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 3:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:02:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:1) -> (device: 1, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:2) -> (device: 2, name: GeForce GTX TITAN X, pci bus id: 0000:83:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:3) -> (device: 3, name: GeForce GTX TITAN X, pci bus id: 0000:84:00.0)
+[2017-03-17 19:59:44,509] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10237.video000000.mp4
+1
+160.0
+[2017-03-17 19:59:51,507] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10237.video000001.mp4
+2
+105.0
+3
+155.0
+4
+135.0
+5
+180.0
+6
+120.0
+(5000, 1.1181946319993586e-08)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:244] PoolAllocator: After 60667 get requests, put_count=60665 evicted_count=1000 eviction_rate=0.016484 and unsatisfied allocation rate=0.0181647
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:256] Raising pool_size_limit_ from 100 to 110
+7
+155.0
+8
+75.0
+[2017-03-17 20:00:53,227] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10237.video000008.mp4
+(6000, 6.1153611899387492)
+Traceback (most recent call last):
+  File "dqn_atari.py", line 164, in <module>
+    main()
+  File "dqn_atari.py", line 157, in main
+    dqn.fit(env, 5000000)
+  File "/usr1/home/glai1/NN/deeprl/deep_rl/hw2/deeprl_hw2/dqn.py", line 294, in fit
+    self.training();
+  File "/usr1/home/glai1/NN/deeprl/deep_rl/hw2/deeprl_hw2/dqn.py", line 232, in training
+    res = self.trainable_model.train_on_batch([s1_batch, y_true, mask], [R])
+  File "/usr0/home/glai1/.local/lib/python2.7/site-packages/keras/engine/training.py", line 1226, in train_on_batch
+    outputs = self.train_function(ins)
+  File "/usr0/home/glai1/.local/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py", line 1096, in __call__
+    updated = session.run(self.outputs + [self.updates_op], feed_dict=feed_dict)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 710, in run
+    run_metadata_ptr)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 908, in _run
+    feed_dict_string, options, run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 958, in _do_run
+    target_list, options, run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 965, in _do_call
+    return fn(*args)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 947, in _run_fn
+    status, run_metadata)
+KeyboardInterrupt
+[2017-03-17 20:01:18,939] Finished writing results. You can upload them to the scoreboard via gym.upload('/usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1')
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcurand.so locally
+Using TensorFlow backend.
+[2017-03-17 20:02:38,138] Making new env: SpaceInvaders-v0
+[2017-03-17 20:02:38,173] DEPRECATION WARNING: env.spec.timestep_limit has been deprecated. Replace your call to `env.spec.timestep_limit` with `env.spec.tags.get('wrapper_config.TimeLimit.max_episode_steps')`. This change was made 12/28/2016 and is included in version 0.7.0
+[2017-03-17 20:02:38,173] Clearing 8 monitor files from previous run (because force=True was provided)
+1000000
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 0 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:02:00.0
+Total memory: 11.92GiB
+Free memory: 3.36GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x609f410
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 1 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:04:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x6534d20
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 2 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:83:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x69c9000
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 3 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:84:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:126] DMA: 0 1 2 3 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 0:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 1:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 2:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 3:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:02:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:1) -> (device: 1, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:2) -> (device: 2, name: GeForce GTX TITAN X, pci bus id: 0000:83:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:3) -> (device: 3, name: GeForce GTX TITAN X, pci bus id: 0000:84:00.0)
+[2017-03-17 20:02:42,868] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000000.mp4
+1
+160.0
+[2017-03-17 20:02:49,055] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000001.mp4
+2
+105.0
+3
+155.0
+4
+135.0
+5
+180.0
+6
+120.0
+(5000, 1.1181942682014778e-08)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:244] PoolAllocator: After 60667 get requests, put_count=60666 evicted_count=1000 eviction_rate=0.0164837 and unsatisfied allocation rate=0.0181483
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:256] Raising pool_size_limit_ from 100 to 110
+7
+155.0
+8
+75.0
+[2017-03-17 20:03:50,056] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000008.mp4
+(6000, 6.1055963993244804)
+9
+185.0
+(7000, 6.340397251132643)
+10
+105.0
+11
+50.0
+(8000, 5.1429030707313217)
+12
+105.0
+(9000, 5.0578149597044106)
+13
+60.0
+(10000, 4.2791774406556504)
+14
+230.0
+15
+90.0
+(11000, 5.4035947537589815)
+16
+85.0
+(12000, 4.729025945264846)
+17
+5.0
+18
+30.0
+(13000, 4.6519280721545222)
+19
+70.0
+(14000, 3.7929421672807075)
+20
+85.0
+21
+0.0
+(15000, 3.9511374760079199)
+22
+40.0
+(16000, 3.661981943936087)
+23
+340.0
+(17000, 4.2966296443548053)
+24
+30.0
+(18000, 3.6127970195948147)
+25
+225.0
+(19000, 4.504882168724202)
+26
+20.0
+(20000, 3.8110074686305597)
+27
+340.0
+[2017-03-17 20:12:01,766] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000027.mp4
+28
+15.0
+(21000, 5.4203976122010502)
+29
+110.0
+(22000, 4.4657593156900255)
+30
+35.0
+31
+70.0
+(23000, 3.6802618906153368)
+32
+30.0
+33
+105.0
+(24000, 4.2402615349097177)
+34
+0.0
+35
+30.0
+(25000, 4.4320222737975419)
+(26000, 3.974950471532531)
+36
+400.0
+37
+80.0
+(27000, 4.9782656624224035)
+38
+55.0
+(28000, 3.6992065027887002)
+39
+80.0
+40
+40.0
+(29000, 3.4740527115762232)
+41
+140.0
+(30000, 3.8532858613394199)
+42
+130.0
+(31000, 4.3937429500464349)
+43
+155.0
+(32000, 4.8962339146789162)
+44
+110.0
+(33000, 5.1296007821820675)
+45
+165.0
+(34000, 4.7175140255000443)
+46
+95.0
+47
+105.0
+(35000, 3.7584280038457365)
+48
+60.0
+49
+95.0
+(36000, 4.3711125856805593)
+50
+100.0
+(37000, 4.8229735232526441)
+51
+120.0
+(38000, 4.1484859459698198)
+52
+555.0
+53
+110.0
+(39000, 5.3593521128986028)
+54
+165.0
+55
+115.0
+(40000, 4.6805039824880659)
+56
+410.0
+(41000, 6.1105119940675792)
+57
+140.0
+(42000, 5.0039710971061142)
+58
+180.0
+59
+75.0
+(43000, 6.0978355009015646)
+60
+105.0
+61
+105.0
+(44000, 5.8266577725503597)
+62
+155.0
+(45000, 5.3587844632528725)
+63
+140.0
+64
+120.0
+[2017-03-17 20:27:12,282] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000064.mp4
+(46000, 5.6100133006703112)
+65
+250.0
+(47000, 5.6918551280722021)
+66
+195.0
+(48000, 5.3113964079506699)
+67
+100.0
+68
+105.0
+(49000, 4.6525131039619447)
+69
+190.0
+(50000, 4.8188806567545983)
+70
+105.0
+(51000, 5.2468329426404088)
+71
+80.0
+72
+70.0
+(52000, 5.3836470625083894)
+73
+55.0
+(53000, 5.3214118786491458)
+74
+130.0
+75
+30.0
+(54000, 5.131384004337713)
+76
+85.0
+77
+15.0
+(55000, 4.8008612546157092)
+78
+120.0
+79
+5.0
+(56000, 4.5291564719006416)
+80
+10.0
+81
+310.0
+(57000, 5.2372178222928198)
+82
+80.0
+(58000, 4.8122622197680176)
+83
+100.0
+(59000, 5.2933477954789998)
+84
+55.0
+85
+100.0
+(60000, 4.6330562653802332)
+86
+260.0
+(61000, 5.8483629901669918)
+87
+380.0
+(62000, 6.3614432325027881)
+88
+40.0
+89
+85.0
+(63000, 5.649908664055169)
+90
+70.0
+91
+150.0
+(64000, 5.6595572203062474)
+92
+115.0
+(65000, 6.462083364993334)
+93
+220.0
+(66000, 6.6904780264087025)
+94
+295.0
+95
+160.0
+(67000, 6.1822892392203208)
+96
+5.0
+97
+55.0
+(68000, 7.103365548003465)
+98
+225.0
+99
+85.0
+(69000, 5.8682939902115612)
+100
+130.0
+(70000, 5.8000328886378556)
+101
+290.0
+(71000, 6.4175947089158001)
+102
+255.0
+(72000, 5.6790259309560058)
+103
+385.0
+104
+130.0
+(73000, 5.9640811241529885)
+105
+75.0
+(74000, 5.6405733005926013)
+106
+115.0
+107
+80.0
+(75000, 7.1355585231110457)
+108
+65.0
+(76000, 5.6033630933351812)
+109
+250.0
+110
+85.0
+(77000, 6.4073674539364873)
+111
+215.0
+(78000, 5.9000589586123828)
+112
+180.0
+(79000, 5.6084032676331699)
+113
+165.0
+114
+160.0
+(80000, 6.0891652344800535)
+115
+175.0
+(81000, 7.3476595300883059)
+116
+130.0
+117
+30.0
+(82000, 6.7432598970048128)
+118
+80.0
+119
+155.0
+(83000, 6.4342496589794758)
+120
+100.0
+(84000, 6.535412047855556)
+121
+115.0
+122
+150.0
+(85000, 6.362014395717531)
+123
+160.0
+(86000, 6.7306739639937874)
+124
+125.0
+(87000, 6.5580834094509486)
+125
+110.0
+[2017-03-17 20:51:48,420] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000125.mp4
+126
+140.0
+(88000, 6.1677811726480725)
+127
+155.0
+(89000, 5.6785996517390016)
+128
+170.0
+(90000, 6.432765811238438)
+129
+170.0
+(91000, 6.5997493778616194)
+130
+130.0
+(92000, 7.1037719612345098)
+131
+220.0
+132
+125.0
+(93000, 7.8813830123171211)
+(94000, 6.2179666395261881)
+133
+390.0
+(95000, 7.254902478735894)
+134
+370.0
+(96000, 7.0215586318448189)
+135
+155.0
+(97000, 6.7173953394368286)
+136
+275.0
+137
+140.0
+(98000, 6.3590615370050072)
+138
+150.0
+(99000, 6.3093276801034808)
+139
+125.0
+(100000, 7.0815366959087553)
+140
+165.0
+(101000, 8.0164559297412641)
+141
+55.0
+142
+115.0
+(102000, 7.6737096551992003)
+143
+230.0
+(103000, 6.3651598052009941)
+144
+240.0
+(104000, 6.9991760830655698)
+145
+180.0
+(105000, 7.475725020162761)
+146
+35.0
+(106000, 7.3650427494198087)
+147
+160.0
+148
+35.0
+(107000, 6.7596557354554534)
+149
+140.0
+(108000, 7.9217529739923771)
+150
+270.0
+(109000, 6.1827754492014648)
+151
+305.0
+(110000, 6.5315795238465073)
+152
+355.0
+(111000, 6.9424065160453319)
+153
+220.0
+(112000, 7.132977852776647)
+154
+280.0
+(113000, 7.833107598029077)
+155
+220.0
+156
+65.0
+(114000, 7.1616500197947026)
+(115000, 6.6629738277792931)
+157
+350.0
+158
+230.0
+(116000, 7.0741730890870098)
+159
+125.0
+(117000, 7.6692082950621847)
+160
+125.0
+161
+100.0
+(118000, 7.2446154553592201)
+162
+100.0
+(119000, 7.288979335010052)
+163
+325.0
+(120000, 7.2168439289703965)
+164
+85.0
+165
+50.0
+(121000, 8.4396670054420824)
+166
+215.0
+167
+60.0
+(122000, 7.847428983874619)
+168
+75.0
+(123000, 7.3468022130206228)
+169
+85.0
+170
+110.0
+(124000, 7.3940829552598295)
+171
+105.0
+172
+35.0
+(125000, 7.391036467052996)
+173
+170.0
+(126000, 7.7318322237394748)
+174
+155.0
+(127000, 7.8430450077950953)
+175
+390.0
+(128000, 7.5435095015913252)
+176
+125.0
+177
+100.0
+(129000, 7.5881053450927141)
+178
+125.0
+(130000, 7.8134348831512037)
+179
+155.0
+180
+50.0
+(131000, 8.3642109726145861)
+181
+120.0
+(132000, 8.4163657786250106)
+182
+210.0
+(133000, 7.7903527453318242)
+183
+125.0
+(134000, 7.6825494795739653)
+184
+380.0
+185
+105.0
+(135000, 8.6474832525253298)
+186
+140.0
+(136000, 7.3982503455504771)
+187
+50.0
+188
+50.0
+189
+80.0
+(137000, 8.0000257069468503)
+190
+75.0
+(138000, 8.5448001916185028)
+191
+290.0
+(139000, 7.6369096546545627)
+192
+105.0
+193
+120.0
+(140000, 7.4110613581836224)
+194
+65.0
+(141000, 7.8162409197166562)
+195
+140.0
+196
+110.0
+(142000, 8.6887833591252566)
+197
+105.0
+(143000, 7.888873076841235)
+198
+145.0
+(144000, 8.4789481574073431)
+199
+145.0
+200
+50.0
+(145000, 8.0780988928675654)
+201
+80.0
+202
+360.0
+(146000, 9.0882783679217098)
+203
+185.0
+(147000, 8.3736213841438296)
+204
+140.0
+(148000, 8.6620597446784373)
+205
+180.0
+(149000, 7.7474919656515118)
+206
+65.0
+207
+155.0
+(150000, 8.9664400071948762)
+208
+50.0
+209
+75.0
+(151000, 8.4548733567968011)
+210
+60.0
+(152000, 8.3959784317314625)
+211
+85.0
+(153000, 8.3873232150226826)
+212
+215.0
+213
+140.0
+(154000, 7.8501495663225649)
+214
+135.0
+(155000, 8.4749721796438102)
+215
+55.0
+216
+80.0
+[2017-03-17 21:32:54,010] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000216.mp4
+(156000, 8.4766642341017722)
+217
+185.0
+(157000, 7.4087707557305693)
+218
+45.0
+(158000, 7.2829567615687845)
+219
+215.0
+(159000, 7.7941072396114466)
+220
+250.0
+221
+105.0
+(160000, 7.558151514433324)
+222
+440.0
+(161000, 8.6227951814234256)
+223
+320.0
+(162000, 8.1921584284454578)
+224
+50.0
+225
+120.0
+(163000, 9.4668749185204497)
+(164000, 8.2427142464369538)
+226
+185.0
+(165000, 8.6482581785321244)
+227
+195.0
+(166000, 8.3028352688699965)
+228
+345.0
+(167000, 7.9137276298552752)
+229
+445.0
+(168000, 8.0628724286109215)
+230
+175.0
+(169000, 8.0730756584852941)
+231
+160.0
+(170000, 8.2075674934238201)
+232
+150.0
+(171000, 8.0347438852638007)
+233
+190.0
+234
+70.0
+(172000, 8.0664911643937227)
+235
+205.0
+(173000, 7.6068427589610215)
+236
+235.0
+(174000, 7.6234967676699164)
+237
+290.0
+(175000, 7.9914576706439258)
+238
+170.0
+(176000, 8.3915163660943506)
+239
+120.0
+(177000, 7.8886696976795792)
+240
+245.0
+(178000, 7.1519415200203653)
+241
+75.0
+(179000, 8.8624776735976347)
+242
+130.0
+(180000, 7.8771069761589168)
+243
+320.0
+(181000, 9.1218385674133895)
+244
+145.0
+(182000, 8.0514377841353415)
+245
+155.0
+(183000, 8.2058077911883593)
+246
+410.0
+247
+5.0
+(184000, 8.4922154248803849)
+248
+20.0
+(185000, 8.3470717816129323)
+249
+175.0
+(186000, 8.1033928758352989)
+250
+170.0
+251
+185.0
+(187000, 8.8949368872642509)
+(188000, 7.4483739958181978)
+252
+230.0
+253
+75.0
+(189000, 8.265567447483539)
+254
+210.0
+(190000, 8.5758219202160841)
+255
+60.0
+256
+105.0
+(191000, 8.073582819715142)
+(192000, 8.7378164408951999)
+257
+215.0
+258
+50.0
+(193000, 8.6345766119807958)
+259
+165.0
+(194000, 8.3372911579310891)
+260
+205.0
+(195000, 8.3255547325015069)
+261
+145.0
+(196000, 8.0622515285611147)
+262
+280.0
+(197000, 7.7205560391247277)
+263
+145.0
+(198000, 8.3434312140047542)
+264
+170.0
+(199000, 8.0080744462907312)
+265
+75.0
+(200000, 8.143536280944943)
+266
+145.0
+(201000, 8.5414657581448559)
+267
+130.0
+268
+105.0
+(202000, 8.2515084479153149)
+269
+35.0
+(203000, 7.7865474322587254)
+270
+130.0
+271
+5.0
+(204000, 8.3357723698168993)
+272
+70.0
+(205000, 7.5793304509222503)
+273
+190.0
+(206000, 7.9749623757153749)
+274
+165.0
+275
+15.0
+(207000, 7.8683530995473268)
+276
+45.0
+277
+185.0
+(208000, 7.5350804280042647)
+(209000, 8.2148662511110313)
+278
+270.0
+279
+110.0
+(210000, 8.1072380836158988)
+280
+80.0
+(211000, 8.7290626710802321)
+281
+320.0
+(212000, 7.5031918013840917)
+282
+220.0
+(213000, 8.3026334243416784)
+(214000, 7.7381354660540822)
+283
+250.0
+(215000, 8.3266775944381948)
+284
+240.0
+(216000, 8.7695715528875589)
+285
+205.0
+(217000, 8.6157054838091138)
+286
+185.0
+(218000, 9.3443491043597469)
+287
+105.0
+(219000, 8.1066447173357012)
+288
+60.0
+(220000, 8.4315646698772913)
+289
+250.0
+(221000, 9.0608229338377715)
+290
+105.0
+(222000, 8.1675431551933286)
+291
+135.0
+(223000, 8.8018511016964904)
+292
+105.0
+(224000, 8.0877197511643164)
+293
+75.0
+294
+165.0
+(225000, 8.6207947493940598)
+(226000, 7.8381549978852272)
+295
+335.0
+(227000, 8.2082300924211733)
+296
+355.0
+(228000, 7.9627505514919754)
+297
+175.0
+(229000, 8.1445564450770611)
+298
+155.0
+(230000, 8.5584687051922081)
+(231000, 8.4076937654316417)
+299
+280.0
+(232000, 8.2681137938201434)
+300
+195.0
+(233000, 8.2530904840677977)
+301
+120.0
+302
+110.0
+(234000, 8.2594770947545761)
+303
+50.0
+(235000, 8.7690957617908722)
+304
+85.0
+(236000, 8.8173314610421656)
+305
+115.0
+(237000, 9.0434941498488186)
+306
+175.0
+307
+50.0
+(238000, 8.8666393906623124)
+(239000, 9.1564916360974316)
+308
+220.0
+(240000, 8.652627505883574)
+309
+195.0
+(241000, 8.7699691123813395)
+310
+90.0
+(242000, 8.3085794796198602)
+311
+430.0
+(243000, 8.7385869525074966)
+312
+130.0
+(244000, 8.772565383434296)
+313
+95.0
+(245000, 8.3868403882533311)
+314
+325.0
+(246000, 8.4176116971224548)
+315
+200.0
+(247000, 9.3818778452426201)
+316
+125.0
+(248000, 8.8227778110355146)
+317
+160.0
+(249000, 8.4261810246556994)
+318
+100.0
+(250000, 8.3506398886889226)
+319
+115.0
+(251000, 8.8768503594249495)
+320
+335.0
+(252000, 9.3256702219247813)
+321
+90.0
+(253000, 8.4517315516620872)
+322
+225.0
+(254000, 8.3817202634513386)
+323
+90.0
+(255000, 8.4044758602082723)
+324
+125.0
+325
+120.0
+(256000, 8.1039756548702719)
+326
+130.0
+(257000, 8.9676386063694959)
+327
+170.0
+(258000, 8.1805993186682464)
+328
+180.0
+(259000, 8.0282604217827327)
+329
+355.0
+(260000, 8.2260944307744506)
+330
+160.0
+(261000, 8.8497878708094362)
+331
+85.0
+(262000, 8.8613488330841061)
+332
+245.0
+(263000, 8.1006285774707791)
+(264000, 8.8803749611377718)
+333
+210.0
+(265000, 8.3824649973809713)
+334
+100.0
+(266000, 8.741098025500774)
+335
+195.0
+(267000, 8.283355215847493)
+336
+235.0
+337
+85.0
+(268000, 8.7370056135654455)
+(269000, 9.1910040239989765)
+338
+130.0
+(270000, 8.1015786494761706)
+339
+105.0
+(271000, 9.1312608786821361)
+340
+325.0
+341
+120.0
+(272000, 9.0886269714236256)
+342
+35.0
+(273000, 8.9387125199437136)
+343
+40.0
+[2017-03-17 22:45:47,028] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.12150.video000343.mp4
+(274000, 8.582642120301724)
+344
+225.0
+345
+55.0
+(275000, 8.1775256566405297)
+346
+155.0
+(276000, 8.6047564421296112)
+347
+85.0
+(277000, 8.7357364330440763)
+348
+165.0
+349
+135.0
+(278000, 9.1413639473766093)
+(279000, 9.0014391427040099)
+350
+205.0
+(280000, 8.1443555666357277)
+351
+175.0
+352
+175.0
+(281000, 9.3100541331171982)
+353
+310.0
+(282000, 9.3796740536093708)
+354
+50.0
+(283000, 8.7876963154524557)
+355
+150.0
+(284000, 8.8087193420082333)
+356
+245.0
+(285000, 8.6062764496058222)
+357
+270.0
+(286000, 8.3612231599688531)
+358
+220.0
+359
+50.0
+(287000, 7.9782313654124737)
+360
+220.0
+(288000, 9.5297954624891279)
+361
+190.0
+(289000, 9.5321529930830007)
+362
+75.0
+(290000, 8.5490311347842223)
+363
+185.0
+364
+70.0
+(291000, 9.0578432210683815)
+365
+160.0
+(292000, 9.4636531539261348)
+366
+75.0
+(293000, 9.0863617230653766)
+367
+295.0
+(294000, 9.0513550801873208)
+(295000, 8.4834220015108581)
+368
+245.0
+369
+110.0
+(296000, 8.7879051136970521)
+370
+390.0
+(297000, 8.5571789923310284)
+371
+40.0
+(298000, 8.9653741281032566)
+372
+145.0
+(299000, 8.8669320886731153)
+373
+135.0
+374
+75.0
+(300000, 8.323987900346518)
+375
+140.0
+(301000, 9.5105101613104335)
+376
+105.0
+(302000, 9.5976373570859437)
+377
+380.0
+(303000, 9.6970905091464523)
+378
+135.0
+(304000, 9.5844280759394174)
+379
+145.0
+(305000, 9.3326264611333603)
+380
+105.0
+(306000, 8.779640829414129)
+381
+240.0
+(307000, 8.4696352258622642)
+382
+200.0
+(308000, 8.2966532627344129)
+(309000, 8.7815496407449238)
+383
+185.0
+384
+145.0
+(310000, 9.349381546318531)
+385
+100.0
+(311000, 8.2975135453343398)
+386
+175.0
+(312000, 10.162861183613538)
+387
+115.0
+(313000, 9.2853793601691716)
+388
+275.0
+(314000, 8.4746876742392772)
+389
+75.0
+(315000, 9.0840248365402214)
+(316000, 8.9591469876468182)
+390
+135.0
+391
+100.0
+(317000, 9.0833386607468132)
+(318000, 8.9454931374192235)
+392
+265.0
+(319000, 8.6955436883568762)
+393
+125.0
+(320000, 9.0795743015855557)
+394
+780.0
+(321000, 8.7736626662909991)
+395
+95.0
+(322000, 9.0371365804672248)
+396
+25.0
+(323000, 9.1976215967833994)
+397
+205.0
+(324000, 8.5908172783255576)
+398
+100.0
+(325000, 9.0458339170366528)
+399
+170.0
+(326000, 9.5331502808481456)
+400
+215.0
+(327000, 9.1406799529790881)
+401
+130.0
+(328000, 9.3312517404705293)
+402
+120.0
+(329000, 8.8255230982601649)
+403
+60.0
+404
+50.0
+(330000, 8.7756445592939851)
+405
+340.0
+(331000, 8.9588215047121054)
+406
+110.0
+(332000, 9.5553805573880677)
+407
+170.0
+408
+50.0
+(333000, 8.4866323575377471)
+409
+85.0
+(334000, 8.2125833579003817)
+410
+115.0
+(335000, 8.8244218100607394)
+411
+240.0
+412
+45.0
+(336000, 8.0636642496287827)
+(337000, 8.5467808853238818)
+413
+100.0
+(338000, 8.4199204843044289)
+414
+60.0
+415
+95.0
+(339000, 8.9354658795893194)
+416
+140.0
+(340000, 9.5814292033314707)
+417
+60.0
+418
+50.0
+(341000, 8.8713674918115135)
+419
+20.0
+420
+55.0
+(342000, 8.8210885595083237)
+421
+105.0
+(343000, 9.8492402934730059)
+422
+105.0
+(344000, 8.6862944783568388)
+423
+125.0
+(345000, 8.6244729259312152)
+424
+95.0
+(346000, 9.7646251125633725)
+425
+175.0
+(347000, 9.9570157300531861)
+426
+215.0
+(348000, 8.5002884708642963)
+427
+110.0
+428
+10.0
+(349000, 8.5167600276321167)
+429
+90.0
+(350000, 9.0170857118219132)
+430
+90.0
+(351000, 9.5390647007226939)
+431
+180.0
+(352000, 8.7725360466539861)
+432
+85.0
+(353000, 8.8166172013580795)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:244] PoolAllocator: After 86438856 get requests, put_count=86438856 evicted_count=8000 eviction_rate=9.2551e-05 and unsatisfied allocation rate=9.26898e-05
+433
+85.0
+(354000, 9.6988844720423213)
+434
+95.0
+435
+115.0
+(355000, 9.125352511584758)
+436
+45.0
+(356000, 8.3295283177047974)
+437
+180.0
+(357000, 9.1355673842430107)
+438
+40.0
+439
+75.0
+(358000, 8.3106866281777627)
+(359000, 10.045785884737969)
+440
+260.0
+441
+55.0
+(360000, 8.6086525084227326)
+442
+155.0
+(361000, 9.1656128017902372)
+443
+20.0
+444
+80.0
+(362000, 8.7586373119354253)
+445
+15.0
+(363000, 9.2290379343330855)
+446
+135.0
+(364000, 9.3204829133450993)
+447
+155.0
+(365000, 8.2786931169629092)
+448
+230.0
+(366000, 8.8175501507818694)
+449
+5.0
+(367000, 8.7284519351124761)
+450
+185.0
+451
+65.0
+(368000, 7.7005294173955914)
+452
+105.0
+(369000, 8.5054614965021607)
+(370000, 8.3797320365905765)
+453
+335.0
+(371000, 8.9095866250395783)
+454
+70.0
+(372000, 8.9683772420138119)
+455
+125.0
+456
+145.0
+(373000, 8.5543007661700248)
+457
+35.0
+458
+5.0
+(374000, 9.5558158803582192)
+(375000, 9.365748978316784)
+459
+130.0
+460
+50.0
+(376000, 9.4651547586619849)
+(377000, 8.2401973457932467)
+461
+170.0
+462
+45.0
+(378000, 8.9473266294449569)
+463
+125.0
+(379000, 9.0434713347852238)
+464
+125.0
+465
+55.0
+(380000, 9.2964292295575142)
+466
+55.0
+(381000, 8.7830285491943361)
+467
+180.0
+(382000, 8.7401673720180995)
+468
+160.0
+(383000, 10.083465891808272)
+469
+125.0
+(384000, 9.7613480411469933)
+470
+360.0
+(385000, 7.7847303219735622)
+471
+255.0
+(386000, 8.3147966691553599)
+(387000, 9.9996967914700505)
+472
+520.0
+473
+155.0
+(388000, 9.0738977933824057)
+474
+410.0
+(389000, 8.8883468893766402)
+475
+125.0
+(390000, 8.953496180534362)
+(391000, 8.7390618011355397)
+476
+125.0
+477
+10.0
+478
+55.0
+(392000, 9.9793642280399801)
+479
+215.0
+(393000, 8.5647342531085009)
+(394000, 9.4462908960878842)
+480
+115.0
+(395000, 9.1995669394135469)
+481
+195.0
+482
+35.0
+(396000, 8.794555298134684)
+483
+175.0
+484
+110.0
+(397000, 8.8371309466660026)
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcurand.so locally
+Using TensorFlow backend.
+[2017-03-17 23:59:34,838] Making new env: SpaceInvaders-v0
+[2017-03-17 23:59:34,873] DEPRECATION WARNING: env.spec.timestep_limit has been deprecated. Replace your call to `env.spec.timestep_limit` with `env.spec.tags.get('wrapper_config.TimeLimit.max_episode_steps')`. This change was made 12/28/2016 and is included in version 0.7.0
+[2017-03-17 23:59:34,874] Clearing 16 monitor files from previous run (because force=True was provided)
+1000000
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 0 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:02:00.0
+Total memory: 11.92GiB
+Free memory: 3.36GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x5408b00
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 1 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:04:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x589e300
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 2 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:83:00.0
+Total memory: 11.92GiB
+Free memory: 10.79GiB
+W tensorflow/stream_executor/cuda/cuda_driver.cc:572] creating context when one is currently active; existing: 0x5d325e0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 3 with properties: 
+name: GeForce GTX TITAN X
+major: 5 minor: 2 memoryClockRate (GHz) 1.076
+pciBusID 0000:84:00.0
+Total memory: 11.92GiB
+Free memory: 9.48GiB
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 0 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 2
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 1 to device ordinal 3
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 2 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 0
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:59] cannot enable peer access from device ordinal 3 to device ordinal 1
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:126] DMA: 0 1 2 3 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 0:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 1:   Y Y N N 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 2:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_init.cc:136] 3:   N N Y Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:02:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:1) -> (device: 1, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:2) -> (device: 2, name: GeForce GTX TITAN X, pci bus id: 0000:83:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:838] Creating TensorFlow device (/gpu:3) -> (device: 3, name: GeForce GTX TITAN X, pci bus id: 0000:84:00.0)
+[2017-03-17 23:59:39,374] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10848.video000000.mp4
+1
+255.0
+[2017-03-17 23:59:46,543] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10848.video000001.mp4
+2
+205.0
+3
+320.0
+4
+555.0
+5
+80.0
+6
+185.0
+(5000, 0.054699096679687503)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:244] PoolAllocator: After 81466 get requests, put_count=81444 evicted_count=1000 eviction_rate=0.0122784 and unsatisfied allocation rate=0.0137726
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:256] Raising pool_size_limit_ from 100 to 110
+(6000, 11.329053587943315)
+7
+290.0
+8
+160.0
+[2017-03-18 00:02:26,516] Starting new video recorder writing to /usr1/home/glai1/NN/deeprl/deep_rl/hw2/tmp/SpaceInvader-experiment-1/openaigym.video.0.10848.video000008.mp4
+(7000, 9.046710296481848)
