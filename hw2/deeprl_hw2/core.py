@@ -242,8 +242,16 @@ class ReplayMemory:
             indexes = np.random.randint(0, self.max_size, size = batch_size);
         else:
             indexes = np.random.randint(0, self.tail, size = batch_size);
-        #print(indexes);
+        #with experiment repaly
         experience = [self.list[indexes[i]] for i in range(batch_size)]
+        #without experiment repaly
+        '''
+        if (self.tail - 1 < 0):
+            mark = self.max_size - 1;
+        else:
+            mark = self.tail - 1;
+        experience = [self.list[mark]];
+        '''
         return experience
 
         #raise NotImplementedError('This method should be overridden')

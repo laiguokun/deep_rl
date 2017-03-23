@@ -98,8 +98,12 @@ class DQNAgent:
         keras.optimizers.Optimizer class. Specifically the Adam
         optimizer.
         """
+        #with target fixed
         self.target_model = clone_model(self.q_network);
         self.target_model.compile(optimizer='sgd', loss=loss_func);
+        #without target fixed
+        #self.target_model = self.q_network;
+        
         self.q_network.compile(optimizer='sgd', loss=loss_func);
         y_pred = self.q_network.output;
         y_true = Input(name='y_true', shape=(self.nb_actions,));
@@ -236,6 +240,7 @@ class DQNAgent:
                 self.loss_record.write(str(self.output/1000) + '\n');
                 self.loss_record.flush();
             self.output = 0;
+        #with target fixed
         if (self.count % self.target_update_freq == 0 and self.enable_double_dqn_hw == False):
             get_hard_target_model_updates(self.target_model, self.q_network);
         
