@@ -145,7 +145,7 @@ def main():  # noqa: D103
         # create your DQN agent, create your model, etc.
         # then you can run your fit method.
         env = gym.make(args.env)
-        env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-dlinear',force=True)
+        env = wrappers.Monitor(env, 'tmp/SpaceInvader-experiment-linear',force=True)
         np.random.seed(args.seed)
         env.seed(args.seed);
         nb_actions = env.action_space.n
@@ -154,15 +154,15 @@ def main():  # noqa: D103
         policy = LinearDecayGreedyEpsilonPolicy(GreedyEpsilonPolicy());
         preprocessor = PreprocessorSequence((84,84),4);
 
-        dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=5000, batch_size = 32, enable_double_dqn = True, enable_double_dqn_hw=False, reward_record=open('dlinear_reward.txt','w'), loss_record=open('dlinear_loss.txt','w')) ;
+        dqn = DQNAgent(q_network, preprocessor, memory, policy, nb_actions, num_burn_in=5000, batch_size = 32, enable_double_dqn = False, enable_double_dqn_hw=False, reward_record=open('linear_reward.txt','w'), loss_record=open('linear_loss.txt','w')) ;
         dqn.compile(Adam(lr=.0001), mean_huber_loss)
         for i in range(50):
             dqn.fit(env, 100000, action_repete=3)
             dqn.evaluate(env, 20, action_repete=3)
         dqn.evaluate(env, 100, action_repete=3);
         env.close()
-        gym.upload('tmp/SpaceInvader-experiment-dlinear', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
-        q_network.save('dlinear.h5')
+        gym.upload('tmp/SpaceInvader-experiment-linear', api_key='sk_0Z6MMPCTgiAGwmwJ54zLQ')
+        q_network.save('linear.h5')
 
 if __name__ == '__main__':
     main()
