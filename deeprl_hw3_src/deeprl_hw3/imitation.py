@@ -5,6 +5,9 @@ from __future__ import print_function, unicode_literals
 from keras.models import model_from_yaml
 import numpy as np
 import time
+from keras.layers import (Activation, Convolution2D, Dense, Flatten, Input,
+                          Permute,Lambda)
+from keras.models import Model, Sequential
 
 
 def load_model(model_config_path, model_weights_path=None):
@@ -55,7 +58,34 @@ def generate_expert_training_data(expert, env, num_episodes=100, render=True):
       second contains a one-hot encoding of all of the actions chosen
       by the expert for those states.
     """
-    return np.zeros((4,)), np.zeros((2,))
+
+    states = [];
+    actions = [];
+    for i in range(num_episodes):
+        state = env.reset();
+        is_terminal = False;
+        while not is_terminal:
+            action = expert.predict_on_batch(np.asarray([state]))[0];
+            action = np.argmax(action);
+            states.append(state)
+            action_one_hot = np.zeros(2);
+            action_one_hot[action] = 1;
+            actions.append(action_one_hot);
+            state, reward, is_terminal, info = env.step(action);
+    return np.asarray(states), np.asarray(actions);
+
+
+def build_cloned_model():
+    """ build the cloned model
+    """
+    INPUT_SHAPE = (4,);
+    model = Sequential();
+    model.add(Dense(16, activation = 'relu', input_shape = INPUT_SHAPE));
+    model.add(Dense(16, activation = 'relu'))
+    model.add(Dense(16, activation = 'relu'))
+    model.add(Dense(2, activation = 'softmax'))
+
+    return model; 
 
 
 def test_cloned_policy(env, cloned_policy, num_episodes=50, render=True):
