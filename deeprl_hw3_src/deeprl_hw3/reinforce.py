@@ -135,11 +135,11 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
         for i in range(len(states)):
             Gt = rewards[i];
             inputs = np.asarray([states[i]]);
-            delta = Gt - 200.0 * value.predict_on_batch(inputs)[0];
+            delta = Gt - (200.0-i) * value.predict_on_batch(inputs)[0];
             #print(delta);
             value_update([inputs, delta]);
             policy_update([inputs, delta, actions[i]])
-
+        count += 1;
         if (count % 100 == 0):
             #print(alpha * delta * tmp)
             #print(value.trainable_weights[0].eval());
@@ -148,9 +148,10 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
             policy.save('policy.h5');
             value.save('value.h5');
         if (count % 1000 == 0):
-            alpha *= 1;
-            beta *= 1;
-        count += 1;
+            alpha *= 0.5;
+            beta *= 0.5;
+            print(alpha, beta);
+
         if (count > max_episodes):
             break;
     return 0
