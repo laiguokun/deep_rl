@@ -112,7 +112,7 @@ def choose_action(model, observation):
     return action
 
 import time;
-def reinforce(env, max_episodes = 30000):
+def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
     """Policy gradient algorithm
 
     Parameters
@@ -123,7 +123,7 @@ def reinforce(env, max_episodes = 30000):
     -------
     Keras Model 
     """
-    policy, value, policy_update, value_update = build_model();
+    policy, value, policy_update, value_update = build_model(alpha, beta);
     count = 0;
     while (True):
         #x = time.time()
