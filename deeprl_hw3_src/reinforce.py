@@ -16,4 +16,6 @@ args = parser.parse_args()
 with tf.device('/cpu:0'):
 	
 	env = gym.make('CartPole-v0');
+	print(args.alpha);
+	print(args.beta);
 	deeprl_hw3.reinforce.reinforce(env,alpha = args.alpha, beta = args.beta, max_episodes = args.epochs);

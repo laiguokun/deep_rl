@@ -55,9 +55,10 @@ def sample_episode(env, policy):
     return states, actions, rewards 
 
 
-def build_model(alpha = 0.01, beta = 0.01):
+def build_model(alpha, beta):
     """ build the cloned model
     """
+    eplison = 1e-6
     INPUT_SHAPE = (4,);
     inputs = Input(shape = INPUT_SHAPE);
     hidden1 = Dense(16, activation = 'relu')(inputs);
@@ -67,7 +68,7 @@ def build_model(alpha = 0.01, beta = 0.01):
 
     v_hidden1 = Dense(16, activation = 'relu')(inputs);
     v_hidden2 = Dense(16, activation = 'relu')(v_hidden1)
-    V = Dense(1, activation = 'linear')(v_hidden2)
+    V = Dense(1, activation = 'linear')(v_hidden1)
     policy = Model(inputs, Pi);
     value = Model(inputs, V);
 
@@ -78,15 +79,16 @@ def build_model(alpha = 0.01, beta = 0.01):
     value_params = value.trainable_weights;
     value_output = value.output[0];
     policy_output = tf.gather(policy.output[0], action)
-    policy_output = tf.log(policy_output);
+    policy_output = tf.log(policy_output+eplison);
 
     value_gradient = tf.gradients(value_output, value_params)
     policy_gradient = tf.gradients(policy_output, policy_params)
 
-    v_updates = [ (param, param + beta * delta * gparam) for param, gparam in zip(value_params, value_gradient)];
-    p_updates = [ (param, param + alpha * delta * gparam) for param, gparam in zip(policy_params, policy_gradient)];
-    value_update = K.function([value.layers[0].input, delta], value_gradient, update = v_updates);
-    policy_update = K.function([policy.layers[0].input, delta, action], policy_gradient, update = p_updates);
+    v_updates = [ K.update(param, param + beta * delta * gparam) for param, gparam in zip(value_params, value_gradient)];
+    p_updates = [ K.update(param, param + alpha * delta * gparam) for param, gparam in zip(policy_params, policy_gradient)];
+    value_update = K.function([value.layers[0].input, delta], value_gradient, updates = v_updates);
+    #tmp = policy_params[0] + alpha * delta * policy_gradient[0];
+    policy_update = K.function([policy.layers[0].input, delta, action], policy_gradient, updates = p_updates);
 
     return policy, value, policy_update, value_update; 
 
@@ -125,6 +127,7 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
     """
     policy, value, policy_update, value_update = build_model(alpha, beta);
     count = 0;
+    #sess = tf.InteractiveSession()
     while (True):
         #x = time.time()
         states, actions, rewards = sample_episode(env, policy);
@@ -132,13 +135,21 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
         for i in range(len(states)):
             Gt = rewards[i];
             inputs = np.asarray([states[i]]);
-            delta = Gt - value.predict_on_batch(inputs)[0];
+            delta = Gt - 200.0 * value.predict_on_batch(inputs)[0];
+            #print(delta);
             value_update([inputs, delta]);
             policy_update([inputs, delta, actions[i]])
-        if (count % 60 == 0):
+
+        if (count % 100 == 0):
+            #print(alpha * delta * tmp)
+            #print(value.trainable_weights[0].eval());
+            #print(policy.trainable_weights[0].eval());
             get_total_reward(env, policy, num_episodes=50)
             policy.save('policy.h5');
             value.save('value.h5');
+        if (count % 1000 == 0):
+            alpha *= 1;
+            beta *= 1;
         count += 1;
         if (count > max_episodes):
             break;
