@@ -7,7 +7,7 @@ from keras.models import Model, Sequential
 import deeprl_hw3.imitation;
 from keras import backend as K
 from copy import deepcopy 
-def get_total_reward(env, model):
+def get_total_reward(env, model, num_episodes = 100):
     """compute total reward
 
     Parameters
@@ -20,7 +20,22 @@ def get_total_reward(env, model):
     -------
     total_reward: float
     """
-    pass
+    total_rewards = []
+
+    for i in range(num_episodes):
+        #print('Starting episode {}'.format(i))
+        total_reward = 0
+        state = env.reset()
+        is_done = False
+        while not is_done:
+            action = choose_action(model, state);
+            state, reward, is_done, _ = env.step(action)
+            total_reward += reward
+        #print('Total reward: {}'.format(total_reward))
+        total_rewards.append(total_reward)
+
+    print('Average total reward: {} (std: {}). min: {}, max: {}'.format(
+        np.mean(total_rewards), np.std(total_rewards), np.min(total_rewards), np.max(total_rewards)));
 
 def sample_episode(env, policy):
     rewards = []
@@ -30,7 +45,7 @@ def sample_episode(env, policy):
     is_done = False
     while not is_done:
         states.append(deepcopy(state));
-        action = np.argmax(policy.predict_on_batch(state[np.newaxis, ...])[0])
+        action = choose_action(policy, state);
         actions.append(action);
         state, reward, is_done, _ = env.step(action)
         rewards.append(reward)
@@ -40,7 +55,7 @@ def sample_episode(env, policy):
     return states, actions, rewards 
 
 
-def build_model():
+def build_model(alpha = 0.01, beta = 0.01):
     """ build the cloned model
     """
     INPUT_SHAPE = (4,);
@@ -49,10 +64,31 @@ def build_model():
     hidden2 = Dense(16, activation = 'relu')(hidden1);
     hidden3 = Dense(16, activation = 'relu')(hidden2);
     Pi = Dense(2, activation = 'softmax')(hidden3)
-    V = Dense(1, activation = 'linear')(hidden3)
+
+    v_hidden1 = Dense(16, activation = 'relu')(inputs);
+    v_hidden2 = Dense(16, activation = 'relu')(v_hidden1)
+    V = Dense(1, activation = 'linear')(v_hidden2)
     policy = Model(inputs, Pi);
     value = Model(inputs, V);
-    return policy, value; 
+
+    delta = tf.placeholder(dtype=tf.float32, name="delta")
+    action = tf.placeholder(dtype=tf.int32, name="action")
+
+    policy_params = policy.trainable_weights;
+    value_params = value.trainable_weights;
+    value_output = value.output[0];
+    policy_output = tf.gather(policy.output[0], action)
+    policy_output = tf.log(policy_output);
+
+    value_gradient = tf.gradients(value_output, value_params)
+    policy_gradient = tf.gradients(policy_output, policy_params)
+
+    v_updates = [ (param, param + beta * delta * gparam) for param, gparam in zip(value_params, value_gradient)];
+    p_updates = [ (param, param + alpha * delta * gparam) for param, gparam in zip(policy_params, policy_gradient)];
+    value_update = K.function([value.layers[0].input, delta], value_gradient, update = v_updates);
+    policy_update = K.function([policy.layers[0].input, delta, action], policy_gradient, update = p_updates);
+
+    return policy, value, policy_update, value_update; 
 
 
 
@@ -71,12 +107,12 @@ def choose_action(model, observation):
     action: int
         the action you choose
     """
-    p = expert.predict_on_batch(np.asarray([observation]))[0];
-    action = np.argmax(p);
-    return p[1], action
+    p = model.predict_on_batch(np.asarray([observation]))[0];
+    action = np.random.choice(np.arange(len(p)), p=p)
+    return action
 
 import time;
-def reinforce(env, alpha = 0.1, beta = 0.1, max_episodes = 30000):
+def reinforce(env, max_episodes = 30000):
     """Policy gradient algorithm
 
     Parameters
@@ -87,38 +123,20 @@ def reinforce(env, alpha = 0.1, beta = 0.1, max_episodes = 30000):
     -------
     Keras Model 
     """
-    m1 = np.matrix('1;0');
-    m2 = np.matrix('0;1');
-    policy, value = build_model();
-    policy_params = policy.trainable_weights;
-    value_params = value.trainable_weights;
-    value_output = value.output;
-    log_output = tf.log(policy.output);
-    policy_output = [log_output * m1, log_output * m2]
-    value_gradient = tf.gradients(value_output, value_params)
-    policy_gradient = [0, 0]
-    policy_gradient[0] = tf.gradients(policy_output[0], policy_params)
-    policy_gradient[1] = tf.gradients(policy_output[1], policy_params)
+    policy, value, policy_update, value_update = build_model();
     count = 0;
-    get_vgrad = K.function([value.layers[0].input], value_gradient);
-    get_pgrad = [0,0];
-    get_pgrad[0] = K.function([policy.layers[0].input], policy_gradient[0]);
-    get_pgrad[1] = K.function([policy.layers[0].input], policy_gradient[1]);
     while (True):
+        #x = time.time()
         states, actions, rewards = sample_episode(env, policy);
-        print(rewards[0]);
+        #print(time.time() - x)
         for i in range(len(states)):
             Gt = rewards[i];
-            delta = Gt - value.predict_on_batch(np.asarray([states[i]]))[0];
-            v_grads = get_vgrad([np.asarray([states[i]])]);
-            p_grads = get_pgrad[actions[i]]
-            p_grads = p_grads([np.asarray([states[i]])])
-            for x in range(len(value_params)):
-                value_params[x] += beta * delta * v_grads[x];
-            for x in range(len(policy_params)):
-                policy_params[x] += alpha * delta * p_grads[x];
-        if (count % 30 == 0):
-            deeprl_hw3.imitation.test_cloned_policy(env, policy, num_episodes=50, render=False)
+            inputs = np.asarray([states[i]]);
+            delta = Gt - value.predict_on_batch(inputs)[0];
+            value_update([inputs, delta]);
+            policy_update([inputs, delta, actions[i]])
+        if (count % 60 == 0):
+            get_total_reward(env, policy, num_episodes=50)
             policy.save('policy.h5');
             value.save('value.h5');
         count += 1;
