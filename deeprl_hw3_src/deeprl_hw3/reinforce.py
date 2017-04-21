@@ -109,6 +109,8 @@ def choose_action(model, observation):
     action: int
         the action you choose
     """
+    if (np.random.random() < 0.05):
+        return np.random.randint(2);
     p = model.predict_on_batch(np.asarray([observation]))[0];
     action = np.random.choice(np.arange(len(p)), p=p)
     return action
@@ -148,8 +150,8 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
             policy.save('policy.h5');
             value.save('value.h5');
         if (count % 1000 == 0):
-            alpha *= 0.5;
-            beta *= 0.5;
+            #alpha *= 0.5;
+            #beta *= 0.5;
             print(alpha, beta);
 
         if (count > max_episodes):
