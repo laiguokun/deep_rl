@@ -1,0 +1,1139 @@
+Using TensorFlow backend.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+[2017-04-20 00:56:26,251] Making new env: CartPole-v0
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         (None, 4)                 0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 16)                80        
+_________________________________________________________________
+activation_1 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 16)                272       
+_________________________________________________________________
+activation_2 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 16)                272       
+_________________________________________________________________
+activation_3 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 2)                 34        
+_________________________________________________________________
+activation_4 (Activation)    (None, 2)                 0         
+=================================================================
+Total params: 658
+Trainable params: 658
+Non-trainable params: 0
+_________________________________________________________________
+experted model in original setting:
+Starting episode 0
+Total reward: 74.0
+Starting episode 1
+Total reward: 21.0
+Starting episode 2
+Total reward: 93.0
+Starting episode 3
+Total reward: 30.0
+Starting episode 4
+Total reward: 165.0
+Starting episode 5
+Total reward: 95.0
+Starting episode 6
+Total reward: 75.0
+Starting episode 7
+Total reward: 21.0
+Starting episode 8
+Total reward: 74.0
+Starting episode 9
+Total reward: 95.0
+Starting episode 10
+Total reward: 93.0
+Starting episode 11
+Total reward: 107.0
+Starting episode 12
+Total reward: 159.0
+Starting episode 13
+Total reward: 29.0
+Starting episode 14
+Total reward: 30.0
+Starting episode 15
+Total reward: 30.0
+Starting episode 16
+Total reward: 74.0
+Starting episode 17
+Total reward: 28.0
+Starting episode 18
+Total reward: 29.0
+Starting episode 19
+Total reward: 21.0
+Starting episode 20
+Total reward: 29.0
+Starting episode 21
+Total reward: 29.0
+Starting episode 22
+Total reward: 163.0
+Starting episode 23
+Total reward: 21.0
+Starting episode 24
+Total reward: 157.0
+Starting episode 25
+Total reward: 105.0
+Starting episode 26
+Total reward: 74.0
+Starting episode 27
+Total reward: 106.0
+Starting episode 28
+Total reward: 75.0
+Starting episode 29
+Total reward: 29.0
+Starting episode 30
+Total reward: 30.0
+Starting episode 31
+Total reward: 29.0
+Starting episode 32
+Total reward: 30.0
+Starting episode 33
+Total reward: 104.0
+Starting episode 34
+Total reward: 107.0
+Starting episode 35
+Total reward: 167.0
+Starting episode 36
+Total reward: 94.0
+Starting episode 37
+Total reward: 94.0
+Starting episode 38
+Total reward: 95.0
+Starting episode 39
+Total reward: 94.0
+Starting episode 40
+Total reward: 107.0
+Starting episode 41
+Total reward: 160.0
+Starting episode 42
+Total reward: 29.0
+Starting episode 43
+Total reward: 159.0
+Starting episode 44
+Total reward: 29.0
+Starting episode 45
+Total reward: 157.0
+Starting episode 46
+Total reward: 29.0
+Starting episode 47
+Total reward: 29.0
+Starting episode 48
+Total reward: 20.0
+Starting episode 49
+Total reward: 20.0
+Average total reward: 74.28 (std: 48.7819802796)
+experted model in harder setting:
+Starting episode 0
+Total reward: 74.0
+Starting episode 1
+Total reward: 31.0
+Starting episode 2
+Total reward: 159.0
+Starting episode 3
+Total reward: 28.0
+Starting episode 4
+Total reward: 29.0
+Starting episode 5
+Total reward: 96.0
+Starting episode 6
+Total reward: 161.0
+Starting episode 7
+Total reward: 162.0
+Starting episode 8
+Total reward: 161.0
+Starting episode 9
+Total reward: 29.0
+Starting episode 10
+Total reward: 161.0
+Starting episode 11
+Total reward: 29.0
+Starting episode 12
+Total reward: 29.0
+Start/usr/local/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py:2124: UserWarning: Expected no kwargs, you passed 1
+kwargs passed to function are ignored with Tensorflow backend
+  warnings.warn('\n'.join(msg))
+ing episode 13
+Total reward: 96.0
+Starting episode 14
+Total reward: 93.0
+Starting episode 15
+Total reward: 109.0
+Starting episode 16
+Total reward: 95.0
+Starting episode 17
+Total reward: 29.0
+Starting episode 18
+Total reward: 29.0
+Starting episode 19
+Total reward: 30.0
+Starting episode 20
+Total reward: 19.0
+Starting episode 21
+Total reward: 21.0
+Starting episode 22
+Total reward: 21.0
+Starting episode 23
+Total reward: 21.0
+Starting episode 24
+Total reward: 160.0
+Starting episode 25
+Total reward: 75.0
+Starting episode 26
+Total reward: 29.0
+Starting episode 27
+Total reward: 21.0
+Starting episode 28
+Total reward: 18.0
+Starting episode 29
+Total reward: 18.0
+Starting episode 30
+Total reward: 105.0
+Starting episode 31
+Total reward: 29.0
+Starting episode 32
+Total reward: 107.0
+Starting episode 33
+Total reward: 95.0
+Starting episode 34
+Total reward: 30.0
+Starting episode 35
+Total reward: 161.0
+Starting episode 36
+Total reward: 94.0
+Starting episode 37
+Total reward: 21.0
+Starting episode 38
+Total reward: 107.0
+Starting episode 39
+Total reward: 164.0
+Starting episode 40
+Total reward: 29.0
+Starting episode 41
+Total reward: 165.0
+Starting episode 42
+Total reward: 18.0
+Starting episode 43
+Total reward: 105.0
+Starting episode 44
+Total reward: 74.0
+Starting episode 45
+Total reward: 29.0
+Starting episode 46
+Total reward: 28.0
+Starting episode 47
+Total reward: 19.0
+Starting episode 48
+Total reward: 155.0
+Starting episode 49
+Total reward: 21.0
+Average total reward: 71.78 (std: 53.9978851438)
+('eposide:', 1)
+Epoch 1/10
+28/28 [==============================] - 0s - loss: 0.6974
+Epoch 2/10
+28/28 [==============================] - 0s - loss: 0.6961
+Epoch 3/10
+28/28 [==============================] - 0s - loss: 0.6946
+Epoch 4/10
+28/28 [==============================] - 0s - loss: 0.6931
+Epoch 5/10
+28/28 [==============================] - 0s - loss: 0.6916
+Epoch 6/10
+28/28 [==============================] - 0s - loss: 0.6902
+Epoch 7/10
+28/28 [==============================] - 0s - loss: 0.6889
+Epoch 8/10
+28/28 [==============================] - 0s - loss: 0.6876
+Epoch 9/10
+28/28 [==============================] - 0s - loss: 0.6864
+Epoch 10/10
+28/28 [==============================] - 0s - loss: 0.6854
+cloned model in original setting:
+Starting episode 0
+Total reward: 17.0
+Starting episode 1
+Total reward: 14.0
+Starting episode 2
+Total reward: 17.0
+Starting episode 3
+Total reward: 4.0
+Starting episode 4
+Total reward: 4.0
+Starting episode 5
+Total reward: 17.0
+Starting episode 6
+Total reward: 4.0
+Starting episode 7
+Total reward: 14.0
+Starting episode 8
+Total reward: 17.0
+Starting episode 9
+Total reward: 15.0
+Starting episode 10
+Total reward: 17.0
+Starting episode 11
+Total reward: 5.0
+Starting episode 12
+Total reward: 5.0
+Starting episode 13
+Total reward: 17.0
+Starting episode 14
+Total reward: 5.0
+Starting episode 15
+Total reward: 15.0
+Starting episode 16
+Total reward: 5.0
+Starting episode 17
+Total reward: 5.0
+Starting episode 18
+Total reward: 13.0
+Starting episode 19
+Total reward: 4.0
+Starting episode 20
+Total reward: 5.0
+Starting episode 21
+Total reward: 4.0
+Starting episode 22
+Total reward: 5.0
+Starting episode 23
+Total reward: 4.0
+Starting episode 24
+Total reward: 13.0
+Starting episode 25
+Total reward: 4.0
+Starting episode 26
+Total reward: 5.0
+Starting episode 27
+Total reward: 14.0
+Starting episode 28
+Total reward: 4.0
+Starting episode 29
+Total reward: 5.0
+Starting episode 30
+Total reward: 13.0
+Starting episode 31
+Total reward: 15.0
+Starting episode 32
+Total reward: 16.0
+Starting episode 33
+Total reward: 5.0
+Starting episode 34
+Total reward: 4.0
+Starting episode 35
+Total reward: 4.0
+Starting episode 36
+Total reward: 4.0
+Starting episode 37
+Total reward: 13.0
+Starting episode 38
+Total reward: 13.0
+Starting episode 39
+Total reward: 5.0
+Starting episode 40
+Total reward: 4.0
+Starting episode 41
+Total reward: 17.0
+Starting episode 42
+Total reward: 13.0
+Starting episode 43
+Total reward: 14.0
+Starting episode 44
+Total reward: 5.0
+Starting episode 45
+Total reward: 4.0
+Starting episode 46
+Total reward: 17.0
+Starting episode 47
+Total reward: 4.0
+Starting episode 48
+Total reward: 16.0
+Starting episode 49
+Total reward: 15.0
+Average total reward: 9.56 (std: 5.4338200191)
+cloned model in harder setting:
+Starting episode 0
+Total reward: 17.0
+Starting episode 1
+Total reward: 4.0
+Starting episode 2
+Total reward: 5.0
+Starting episode 3
+Total reward: 13.0
+Starting episode 4
+Total reward: 5.0
+Starting episode 5
+Total reward: 15.0
+Starting episode 6
+Total reward: 15.0
+Starting episode 7
+Total reward: 13.0
+Starting episode 8
+Total reward: 13.0
+Starting episode 9
+Total reward: 14.0
+Starting episode 10
+Total reward: 14.0
+Starting episode 11
+Total reward: 5.0
+Starting episode 12
+Total reward: 13.0
+Starting episode 13
+Total reward: 17.0
+Starting episode 14
+Total reward: 13.0
+Starting episode 15
+Total reward: 17.0
+Starting episode 16
+Total reward: 13.0
+Starting episode 17
+Total reward: 13.0
+Starting episode 18
+Total reward: 4.0
+Starting episode 19
+Total reward: 4.0
+Starting episode 20
+Total reward: 5.0
+Starting episode 21
+Total reward: 15.0
+Starting episode 22
+Total reward: 14.0
+Starting episode 23
+Total reward: 4.0
+Starting episode 24
+Total reward: 4.0
+Starting episode 25
+Total reward: 4.0
+Starting episode 26
+Total reward: 15.0
+Starting episode 27
+Total reward: 5.0
+Starting episode 28
+Total reward: 13.0
+Starting episode 29
+Total reward: 4.0
+Starting episode 30
+Total reward: 5.0
+Starting episode 31
+Total reward: 14.0
+Starting episode 32
+Total reward: 4.0
+Starting episode 33
+Total reward: 15.0
+Starting episode 34
+Total reward: 4.0
+Starting episode 35
+Total reward: 13.0
+Starting episode 36
+Total reward: 14.0
+Starting episode 37
+Total reward: 17.0
+Starting episode 38
+Total reward: 4.0
+Starting episode 39
+Total reward: 13.0
+Starting episode 40
+Total reward: 4.0
+Starting episode 41
+Total reward: 16.0
+Starting episode 42
+Total reward: 4.0
+Starting episode 43
+Total reward: 13.0
+Starting episode 44
+Total reward: 13.0
+Starting episode 45
+Total reward: 17.0
+Starting episode 46
+Total reward: 4.0
+Starting episode 47
+Total reward: 14.0
+Starting episode 48
+Total reward: 17.0
+Starting episode 49
+Total reward: 5.0
+Average total reward: 10.4 (std: 5.08723893679)
+('eposide:', 10)
+Epoch 1/10
+ 32/796 [>.............................] - ETA: 6s - loss: 0.7074704/796 [=========================>....] - ETA: 0s - loss: 0.6824796/796 [==============================] - 0s - loss: 0.6807     
+Epoch 2/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.6723704/796 [=========================>....] - ETA: 0s - loss: 0.6579796/796 [==============================] - 0s - loss: 0.6578     
+Epoch 3/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.6539796/796 [==============================] - 0s - loss: 0.6407     
+Epoch 4/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.5920796/796 [==============================] - 0s - loss: 0.6197     
+Epoch 5/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.6200796/796 [==============================] - 0s - loss: 0.5997     
+Epoch 6/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.5321768/796 [===========================>..] - ETA: 0s - loss: 0.5731796/796 [==============================] - 0s - loss: 0.5757     
+Epoch 7/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.5343768/796 [===========================>..] - ETA: 0s - loss: 0.5608796/796 [==============================] - 0s - loss: 0.5573     
+Epoch 8/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.4814768/796 [===========================>..] - ETA: 0s - loss: 0.5425796/796 [==============================] - 0s - loss: 0.5425     
+Epoch 9/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.5062796/796 [==============================] - 0s - loss: 0.5321     
+Epoch 10/10
+ 32/796 [>.............................] - ETA: 0s - loss: 0.5638796/796 [==============================] - 0s - loss: 0.5206     
+cloned model in original setting:
+Starting episode 0
+Total reward: 32.0
+Starting episode 1
+Total reward: 70.0
+Starting episode 2
+Total reward: 31.0
+Starting episode 3
+Total reward: 32.0
+Starting episode 4
+Total reward: 7.0
+Starting episode 5
+Total reward: 20.0
+Starting episode 6
+Total reward: 34.0
+Starting episode 7
+Total reward: 137.0
+Starting episode 8
+Total reward: 19.0
+Starting episode 9
+Total reward: 7.0
+Starting episode 10
+Total reward: 97.0
+Starting episode 11
+Total reward: 169.0
+Starting episode 12
+Total reward: 97.0
+Starting episode 13
+Total reward: 19.0
+Starting episode 14
+Total reward: 9.0
+Starting episode 15
+Total reward: 71.0
+Starting episode 16
+Total reward: 70.0
+Starting episode 17
+Total reward: 165.0
+Starting episode 18
+Total reward: 99.0
+Starting episode 19
+Total reward: 32.0
+Starting episode 20
+Total reward: 7.0
+Starting episode 21
+Total reward: 85.0
+Starting episode 22
+Total reward: 8.0
+Starting episode 23
+Total reward: 108.0
+Starting episode 24
+Total reward: 160.0
+Starting episode 25
+Total reward: 7.0
+Starting episode 26
+Total reward: 94.0
+Starting episode 27
+Total reward: 7.0
+Starting episode 28
+Total reward: 113.0
+Starting episode 29
+Total reward: 133.0
+Starting episode 30
+Total reward: 8.0
+Starting episode 31
+Total reward: 99.0
+Starting episode 32
+Total reward: 19.0
+Starting episode 33
+Total reward: 34.0
+Starting episode 34
+Total reward: 20.0
+Starting episode 35
+Total reward: 139.0
+Starting episode 36
+Total reward: 34.0
+Starting episode 37
+Total reward: 7.0
+Starting episode 38
+Total reward: 69.0
+Starting episode 39
+Total reward: 6.0
+Starting episode 40
+Total reward: 194.0
+Starting episode 41
+Total reward: 137.0
+Starting episode 42
+Total reward: 68.0
+Starting episode 43
+Total reward: 151.0
+Starting episode 44
+Total reward: 20.0
+Starting episode 45
+Total reward: 31.0
+Starting episode 46
+Total reward: 105.0
+Starting episode 47
+Total reward: 20.0
+Starting episode 48
+Total reward: 149.0
+Starting episode 49
+Total reward: 97.0
+Average total reward: 66.92 (std: 54.7568589311)
+cloned model in harder setting:
+Starting episode 0
+Total reward: 19.0
+Starting episode 1
+Total reward: 160.0
+Starting episode 2
+Total reward: 9.0
+Starting episode 3
+Total reward: 32.0
+Starting episode 4
+Total reward: 120.0
+Starting episode 5
+Total reward: 69.0
+Starting episode 6
+Total reward: 34.0
+Starting episode 7
+Total reward: 105.0
+Starting episode 8
+Total reward: 20.0
+Starting episode 9
+Total reward: 34.0
+Starting episode 10
+Total reward: 20.0
+Starting episode 11
+Total reward: 70.0
+Starting episode 12
+Total reward: 31.0
+Starting episode 13
+Total reward: 70.0
+Starting episode 14
+Total reward: 32.0
+Starting episode 15
+Total reward: 69.0
+Starting episode 16
+Total reward: 89.0
+Starting episode 17
+Total reward: 32.0
+Starting episode 18
+Total reward: 107.0
+Starting episode 19
+Total reward: 91.0
+Starting episode 20
+Total reward: 69.0
+Starting episode 21
+Total reward: 20.0
+Starting episode 22
+Total reward: 32.0
+Starting episode 23
+Total reward: 32.0
+Starting episode 24
+Total reward: 34.0
+Starting episode 25
+Total reward: 69.0
+Starting episode 26
+Total reward: 32.0
+Starting episode 27
+Total reward: 32.0
+Starting episode 28
+Total reward: 103.0
+Starting episode 29
+Total reward: 113.0
+Starting episode 30
+Total reward: 69.0
+Starting episode 31
+Total reward: 140.0
+Starting episode 32
+Total reward: 19.0
+Starting episode 33
+Total reward: 68.0
+Starting episode 34
+Total reward: 107.0
+Starting episode 35
+Total reward: 9.0
+Starting episode 36
+Total reward: 168.0
+Starting episode 37
+Total reward: 70.0
+Starting episode 38
+Total reward: 87.0
+Starting episode 39
+Total reward: 7.0
+Starting episode 40
+Total reward: 31.0
+Starting episode 41
+Total reward: 136.0
+Starting episode 42
+Total reward: 33.0
+Starting episode 43
+Total reward: 149.0
+Starting episode 44
+Total reward: 8.0
+Starting episode 45
+Total reward: 7.0
+Starting episode 46
+Total reward: 69.0
+Starting episode 47
+Total reward: 20.0
+Starting episode 48
+Total reward: 31.0
+Starting episode 49
+Total reward: 7.0
+Average total reward: 59.68 (std: 43.9774669575)
+('eposide:', 50)
+Epoch 1/10
+  32/3729 [..............................] - ETA: 39s - loss: 0.7022 864/3729 [=====>........................] - ETA: 1s - loss: 0.6849 1696/3729 [============>.................] - ETA: 0s - loss: 0.67332528/3729 [===================>..........] - ETA: 0s - loss: 0.66733296/3729 [=========================>....] - ETA: 0s - loss: 0.65993729/3729 [==============================] - 0s - loss: 0.6561     
+Epoch 2/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.6330 768/3729 [=====>........................] - ETA: 0s - loss: 0.62291440/3729 [==========>...................] - ETA: 0s - loss: 0.61892240/3729 [=================>............] - ETA: 0s - loss: 0.60683008/3729 [=======================>......] - ETA: 0s - loss: 0.60153729/3729 [==============================] - 0s - loss: 0.5942     
+Epoch 3/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.6161 800/3729 [=====>........................] - ETA: 0s - loss: 0.57231536/3729 [===========>..................] - ETA: 0s - loss: 0.56482304/3729 [=================>............] - ETA: 0s - loss: 0.55273072/3729 [=======================>......] - ETA: 0s - loss: 0.55063729/3729 [==============================] - 0s - loss: 0.5470     
+Epoch 4/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.4180 800/3729 [=====>........................] - ETA: 0s - loss: 0.50931600/3729 [===========>..................] - ETA: 0s - loss: 0.50612432/3729 [==================>...........] - ETA: 0s - loss: 0.51453264/3729 [=========================>....] - ETA: 0s - loss: 0.51603729/3729 [==============================] - 0s - loss: 0.5178     
+Epoch 5/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.5325 864/3729 [=====>........................] - ETA: 0s - loss: 0.48751696/3729 [============>.................] - ETA: 0s - loss: 0.49222528/3729 [===================>..........] - ETA: 0s - loss: 0.49253360/3729 [==========================>...] - ETA: 0s - loss: 0.48563729/3729 [==============================] - 0s - loss: 0.4895     
+Epoch 6/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.5332 864/3729 [=====>........................] - ETA: 0s - loss: 0.48121696/3729 [============>.................] - ETA: 0s - loss: 0.46032528/3729 [===================>..........] - ETA: 0s - loss: 0.45723360/3729 [==========================>...] - ETA: 0s - loss: 0.46283729/3729 [==============================] - 0s - loss: 0.4665     
+Epoch 7/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.3673 864/3729 [=====>........................] - ETA: 0s - loss: 0.46541664/3729 [============>.................] - ETA: 0s - loss: 0.46922496/3729 [===================>..........] - ETA: 0s - loss: 0.45153360/3729 [==========================>...] - ETA: 0s - loss: 0.44763729/3729 [==============================] - 0s - loss: 0.4468     
+Epoch 8/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.4180 864/3729 [=====>........................] - ETA: 0s - loss: 0.43641696/3729 [============>.................] - ETA: 0s - loss: 0.43492496/3729 [===================>..........] - ETA: 0s - loss: 0.42883328/3729 [=========================>....] - ETA: 0s - loss: 0.42643729/3729 [==============================] - 0s - loss: 0.4266     
+Epoch 9/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.3923 864/3729 [=====>........................] - ETA: 0s - loss: 0.41281696/3729 [============>.................] - ETA: 0s - loss: 0.40502528/3729 [===================>..........] - ETA: 0s - loss: 0.40423360/3729 [==========================>...] - ETA: 0s - loss: 0.40793729/3729 [==============================] - 0s - loss: 0.4117     
+Epoch 10/10
+  32/3729 [..............................] - ETA: 0s - loss: 0.4593 864/3729 [=====>........................] - ETA: 0s - loss: 0.42781664/3729 [============>.................] - ETA: 0s - loss: 0.41132496/3729 [===================>..........] - ETA: 0s - loss: 0.40513328/3729 [=========================>....] - ETA: 0s - loss: 0.40083729/3729 [==============================] - 0s - loss: 0.3985     
+cloned model in original setting:
+Starting episode 0
+Total reward: 14.0
+Starting episode 1
+Total reward: 16.0
+Starting episode 2
+Total reward: 29.0
+Starting episode 3
+Total reward: 19.0
+Starting episode 4
+Total reward: 73.0
+Starting episode 5
+Total reward: 82.0
+Starting episode 6
+Total reward: 97.0
+Starting episode 7
+Total reward: 32.0
+Starting episode 8
+Total reward: 16.0
+Starting episode 9
+Total reward: 72.0
+Starting episode 10
+Total reward: 15.0
+Starting episode 11
+Total reward: 72.0
+Starting episode 12
+Total reward: 95.0
+Starting episode 13
+Total reward: 32.0
+Starting episode 14
+Total reward: 14.0
+Starting episode 15
+Total reward: 19.0
+Starting episode 16
+Total reward: 100.0
+Starting episode 17
+Total reward: 73.0
+Starting episode 18
+Total reward: 85.0
+Starting episode 19
+Total reward: 98.0
+Starting episode 20
+Total reward: 19.0
+Starting episode 21
+Total reward: 19.0
+Starting episode 22
+Total reward: 125.0
+Starting episode 23
+Total reward: 16.0
+Starting episode 24
+Total reward: 72.0
+Starting episode 25
+Total reward: 90.0
+Starting episode 26
+Total reward: 19.0
+Starting episode 27
+Total reward: 126.0
+Starting episode 28
+Total reward: 16.0
+Starting episode 29
+Total reward: 71.0
+Starting episode 30
+Total reward: 32.0
+Starting episode 31
+Total reward: 29.0
+Starting episode 32
+Total reward: 15.0
+Starting episode 33
+Total reward: 32.0
+Starting episode 34
+Total reward: 72.0
+Starting episode 35
+Total reward: 15.0
+Starting episode 36
+Total reward: 33.0
+Starting episode 37
+Total reward: 32.0
+Starting episode 38
+Total reward: 16.0
+Starting episode 39
+Total reward: 32.0
+Starting episode 40
+Total reward: 14.0
+Starting episode 41
+Total reward: 95.0
+Starting episode 42
+Total reward: 33.0
+Starting episode 43
+Total reward: 14.0
+Starting episode 44
+Total reward: 19.0
+Starting episode 45
+Total reward: 33.0
+Starting episode 46
+Total reward: 29.0
+Starting episode 47
+Total reward: 98.0
+Starting episode 48
+Total reward: 97.0
+Starting episode 49
+Total reward: 96.0
+Average total reward: 49.24 (std: 34.8961659785)
+cloned model in harder setting:
+Starting episode 0
+Total reward: 81.0
+Starting episode 1
+Total reward: 19.0
+Starting episode 2
+Total reward: 15.0
+Starting episode 3
+Total reward: 89.0
+Starting episode 4
+Total reward: 19.0
+Starting episode 5
+Total reward: 33.0
+Starting episode 6
+Total reward: 33.0
+Starting episode 7
+Total reward: 90.0
+Starting episode 8
+Total reward: 73.0
+Starting episode 9
+Total reward: 32.0
+Starting episode 10
+Total reward: 99.0
+Starting episode 11
+Total reward: 33.0
+Starting episode 12
+Total reward: 16.0
+Starting episode 13
+Total reward: 97.0
+Starting episode 14
+Total reward: 72.0
+Starting episode 15
+Total reward: 72.0
+Starting episode 16
+Total reward: 14.0
+Starting episode 17
+Total reward: 14.0
+Starting episode 18
+Total reward: 139.0
+Starting episode 19
+Total reward: 84.0
+Starting episode 20
+Total reward: 14.0
+Starting episode 21
+Total reward: 98.0
+Starting episode 22
+Total reward: 72.0
+Starting episode 23
+Total reward: 131.0
+Starting episode 24
+Total reward: 98.0
+Starting episode 25
+Total reward: 98.0
+Starting episode 26
+Total reward: 73.0
+Starting episode 27
+Total reward: 29.0
+Starting episode 28
+Total reward: 29.0
+Starting episode 29
+Total reward: 33.0
+Starting episode 30
+Total reward: 126.0
+Starting episode 31
+Total reward: 19.0
+Starting episode 32
+Total reward: 29.0
+Starting episode 33
+Total reward: 32.0
+Starting episode 34
+Total reward: 15.0
+Starting episode 35
+Total reward: 16.0
+Starting episode 36
+Total reward: 135.0
+Starting episode 37
+Total reward: 29.0
+Starting episode 38
+Total reward: 16.0
+Starting episode 39
+Total reward: 29.0
+Starting episode 40
+Total reward: 99.0
+Starting episode 41
+Total reward: 126.0
+Starting episode 42
+Total reward: 125.0
+Starting episode 43
+Total reward: 16.0
+Starting episode 44
+Total reward: 29.0
+Starting episode 45
+Total reward: 19.0
+Starting episode 46
+Total reward: 90.0
+Starting episode 47
+Total reward: 83.0
+Starting episode 48
+Total reward: 81.0
+Starting episode 49
+Total reward: 72.0
+Average total reward: 59.7 (std: 39.8096721916)
+('eposide:', 100)
+Epoch 1/10
+  32/6825 [..............................] - ETA: 60s - loss: 0.6755 768/6825 [==>...........................] - ETA: 2s - loss: 0.6902 1536/6825 [=====>........................] - ETA: 1s - loss: 0.68642272/6825 [========>.....................] - ETA: 0s - loss: 0.68033008/6825 [============>.................] - ETA: 0s - loss: 0.67783712/6825 [===============>..............] - ETA: 0s - loss: 0.67534448/6825 [==================>...........] - ETA: 0s - loss: 0.67185152/6825 [=====================>........] - ETA: 0s - loss: 0.66855856/6825 [========================>.....] - ETA: 0s - loss: 0.66406560/6825 [===========================>..] - ETA: 0s - loss: 0.66026825/6825 [==============================] - 0s - loss: 0.6578     
+Epoch 2/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.5402 736/6825 [==>...........................] - ETA: 0s - loss: 0.59871472/6825 [=====>........................] - ETA: 0s - loss: 0.59212208/6825 [========>.....................] - ETA: 0s - loss: 0.58302912/6825 [===========>..................] - ETA: 0s - loss: 0.57863616/6825 [==============>...............] - ETA: 0s - loss: 0.57334320/6825 [=================>............] - ETA: 0s - loss: 0.57265024/6825 [=====================>........] - ETA: 0s - loss: 0.57025792/6825 [========================>.....] - ETA: 0s - loss: 0.56606592/6825 [===========================>..] - ETA: 0s - loss: 0.56266825/6825 [==============================] - 0s - loss: 0.5626     
+Epoch 3/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.5893 832/6825 [==>...........................] - ETA: 0s - loss: 0.55301632/6825 [======>.......................] - ETA: 0s - loss: 0.54832304/6825 [=========>....................] - ETA: 0s - loss: 0.54173072/6825 [============>.................] - ETA: 0s - loss: 0.53693840/6825 [===============>..............] - ETA: 0s - loss: 0.53824608/6825 [===================>..........] - ETA: 0s - loss: 0.53015376/6825 [======================>.......] - ETA: 0s - loss: 0.52446112/6825 [=========================>....] - ETA: 0s - loss: 0.52206825/6825 [==============================] - 0s - loss: 0.5189     
+Epoch 4/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.3058 736/6825 [==>...........................] - ETA: 0s - loss: 0.50481440/6825 [=====>........................] - ETA: 0s - loss: 0.51322176/6825 [========>.....................] - ETA: 0s - loss: 0.51002944/6825 [===========>..................] - ETA: 0s - loss: 0.49733680/6825 [===============>..............] - ETA: 0s - loss: 0.49544448/6825 [==================>...........] - ETA: 0s - loss: 0.49635216/6825 [=====================>........] - ETA: 0s - loss: 0.49965952/6825 [=========================>....] - ETA: 0s - loss: 0.49786720/6825 [============================>.] - ETA: 0s - loss: 0.49776825/6825 [==============================] - 0s - loss: 0.4976     
+Epoch 5/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.4618 832/6825 [==>...........................] - ETA: 0s - loss: 0.49391600/6825 [======>.......................] - ETA: 0s - loss: 0.49132272/6825 [========>.....................] - ETA: 0s - loss: 0.49043008/6825 [============>.................] - ETA: 0s - loss: 0.48603776/6825 [===============>..............] - ETA: 0s - loss: 0.48584544/6825 [==================>...........] - ETA: 0s - loss: 0.48305312/6825 [======================>.......] - ETA: 0s - loss: 0.48296080/6825 [=========================>....] - ETA: 0s - loss: 0.48076825/6825 [==============================] - 0s - loss: 0.4797     
+Epoch 6/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.4199 768/6825 [==>...........................] - ETA: 0s - loss: 0.46341472/6825 [=====>........................] - ETA: 0s - loss: 0.47092240/6825 [========>.....................] - ETA: 0s - loss: 0.46502944/6825 [===========>..................] - ETA: 0s - loss: 0.46633712/6825 [===============>..............] - ETA: 0s - loss: 0.46284448/6825 [==================>...........] - ETA: 0s - loss: 0.46325184/6825 [=====================>........] - ETA: 0s - loss: 0.45995920/6825 [=========================>....] - ETA: 0s - loss: 0.46456624/6825 [============================>.] - ETA: 0s - loss: 0.46516825/6825 [==============================] - 0s - loss: 0.4642     
+Epoch 7/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.5578 768/6825 [==>...........................] - ETA: 0s - loss: 0.45411536/6825 [=====>........................] - ETA: 0s - loss: 0.44372272/6825 [========>.....................] - ETA: 0s - loss: 0.44932976/6825 [============>.................] - ETA: 0s - loss: 0.45183712/6825 [===============>..............] - ETA: 0s - loss: 0.44954448/6825 [==================>...........] - ETA: 0s - loss: 0.45305184/6825 [=====================>........] - ETA: 0s - loss: 0.44895888/6825 [========================>.....] - ETA: 0s - loss: 0.44876560/6825 [===========================>..] - ETA: 0s - loss: 0.44756825/6825 [==============================] - 0s - loss: 0.4457     
+Epoch 8/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.5367 768/6825 [==>...........................] - ETA: 0s - loss: 0.42831504/6825 [=====>........................] - ETA: 0s - loss: 0.42922176/6825 [========>.....................] - ETA: 0s - loss: 0.43142816/6825 [===========>..................] - ETA: 0s - loss: 0.43513520/6825 [==============>...............] - ETA: 0s - loss: 0.43874288/6825 [=================>............] - ETA: 0s - loss: 0.43605024/6825 [=====================>........] - ETA: 0s - loss: 0.43435760/6825 [========================>.....] - ETA: 0s - loss: 0.43286528/6825 [===========================>..] - ETA: 0s - loss: 0.43396825/6825 [==============================] - 0s - loss: 0.4329     
+Epoch 9/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.5247 800/6825 [==>...........................] - ETA: 0s - loss: 0.40051600/6825 [======>.......................] - ETA: 0s - loss: 0.40832400/6825 [=========>....................] - ETA: 0s - loss: 0.42483200/6825 [=============>................] - ETA: 0s - loss: 0.42393904/6825 [================>.............] - ETA: 0s - loss: 0.42474672/6825 [===================>..........] - ETA: 0s - loss: 0.42075472/6825 [=======================>......] - ETA: 0s - loss: 0.41876240/6825 [==========================>...] - ETA: 0s - loss: 0.41866825/6825 [==============================] - 0s - loss: 0.4174     
+Epoch 10/10
+  32/6825 [..............................] - ETA: 0s - loss: 0.3758 800/6825 [==>...........................] - ETA: 0s - loss: 0.41371600/6825 [======>.......................] - ETA: 0s - loss: 0.40582368/6825 [=========>....................] - ETA: 0s - loss: 0.40363008/6825 [============>.................] - ETA: 0s - loss: 0.40733712/6825 [===============>..............] - ETA: 0s - loss: 0.40474320/6825 [=================>............] - ETA: 0s - loss: 0.40614992/6825 [====================>.........] - ETA: 0s - loss: 0.40815728/6825 [========================>.....] - ETA: 0s - loss: 0.40726464/6825 [===========================>..] - ETA: 0s - loss: 0.40236825/6825 [==============================] - 0s - loss: 0.4040     
+cloned model in original setting:
+Starting episode 0
+Total reward: 89.0
+Starting episode 1
+Total reward: 32.0
+Starting episode 2
+Total reward: 100.0
+Starting episode 3
+Total reward: 154.0
+Starting episode 4
+Total reward: 32.0
+Starting episode 5
+Total reward: 89.0
+Starting episode 6
+Total reward: 69.0
+Starting episode 7
+Total reward: 16.0
+Starting episode 8
+Total reward: 81.0
+Starting episode 9
+Total reward: 19.0
+Starting episode 10
+Total reward: 19.0
+Starting episode 11
+Total reward: 151.0
+Starting episode 12
+Total reward: 69.0
+Starting episode 13
+Total reward: 99.0
+Starting episode 14
+Total reward: 19.0
+Starting episode 15
+Total reward: 16.0
+Starting episode 16
+Total reward: 83.0
+Starting episode 17
+Total reward: 32.0
+Starting episode 18
+Total reward: 31.0
+Starting episode 19
+Total reward: 146.0
+Starting episode 20
+Total reward: 81.0
+Starting episode 21
+Total reward: 69.0
+Starting episode 22
+Total reward: 32.0
+Starting episode 23
+Total reward: 32.0
+Starting episode 24
+Total reward: 147.0
+Starting episode 25
+Total reward: 19.0
+Starting episode 26
+Total reward: 68.0
+Starting episode 27
+Total reward: 30.0
+Starting episode 28
+Total reward: 31.0
+Starting episode 29
+Total reward: 32.0
+Starting episode 30
+Total reward: 68.0
+Starting episode 31
+Total reward: 15.0
+Starting episode 32
+Total reward: 81.0
+Starting episode 33
+Total reward: 19.0
+Starting episode 34
+Total reward: 68.0
+Starting episode 35
+Total reward: 80.0
+Starting episode 36
+Total reward: 19.0
+Starting episode 37
+Total reward: 90.0
+Starting episode 38
+Total reward: 82.0
+Starting episode 39
+Total reward: 81.0
+Starting episode 40
+Total reward: 17.0
+Starting episode 41
+Total reward: 100.0
+Starting episode 42
+Total reward: 81.0
+Starting episode 43
+Total reward: 82.0
+Starting episode 44
+Total reward: 87.0
+Starting episode 45
+Total reward: 81.0
+Starting episode 46
+Total reward: 32.0
+Starting episode 47
+Total reward: 100.0
+Starting episode 48
+Total reward: 100.0
+Starting episode 49
+Total reward: 100.0
+Average total reward: 65.4 (std: 38.5580082473)
+cloned model in harder setting:
+Starting episode 0
+Total reward: 142.0
+Starting episode 1
+Total reward: 81.0
+Starting episode 2
+Total reward: 16.0
+Starting episode 3
+Total reward: 69.0
+Starting episode 4
+Total reward: 33.0
+Starting episode 5
+Total reward: 32.0
+Starting episode 6
+Total reward: 100.0
+Starting episode 7
+Total reward: 19.0
+Starting episode 8
+Total reward: 82.0
+Starting episode 9
+Total reward: 19.0
+Starting episode 10
+Total reward: 155.0
+Starting episode 11
+Total reward: 101.0
+Starting episode 12
+Total reward: 100.0
+Starting episode 13
+Total reward: 98.0
+Starting episode 14
+Total reward: 68.0
+Starting episode 15
+Total reward: 84.0
+Starting episode 16
+Total reward: 84.0
+Starting episode 17
+Total reward: 32.0
+Starting episode 18
+Total reward: 32.0
+Starting episode 19
+Total reward: 19.0
+Starting episode 20
+Total reward: 16.0
+Starting episode 21
+Total reward: 99.0
+Starting episode 22
+Total reward: 81.0
+Starting episode 23
+Total reward: 149.0
+Starting episode 24
+Total reward: 101.0
+Starting episode 25
+Total reward: 16.0
+Starting episode 26
+Total reward: 31.0
+Starting episode 27
+Total reward: 81.0
+Starting episode 28
+Total reward: 99.0
+Starting episode 29
+Total reward: 81.0
+Starting episode 30
+Total reward: 69.0
+Starting episode 31
+Total reward: 83.0
+Starting episode 32
+Total reward: 165.0
+Starting episode 33
+Total reward: 148.0
+Starting episode 34
+Total reward: 99.0
+Starting episode 35
+Total reward: 31.0
+Starting episode 36
+Total reward: 174.0
+Starting episode 37
+Total reward: 19.0
+Starting episode 38
+Total reward: 32.0
+Starting episode 39
+Total reward: 68.0
+Starting episode 40
+Total reward: 31.0
+Starting episode 41
+Total reward: 32.0
+Starting episode 42
+Total reward: 88.0
+Starting episode 43
+Total reward: 82.0
+Starting episode 44
+Total reward: 33.0
+Starting episode 45
+Total reward: 32.0
+Starting episode 46
+Total reward: 19.0
+Starting episode 47
+Total reward: 69.0
+Starting episode 48
+Total reward: 68.0
+Starting episode 49
+Total reward: 81.0
+Average total reward: 70.86 (std: 42.6797422673)

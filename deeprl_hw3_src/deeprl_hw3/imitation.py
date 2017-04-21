@@ -66,12 +66,14 @@ def generate_expert_training_data(expert, env, num_episodes=100, render=True):
         is_terminal = False;
         while not is_terminal:
             action = expert.predict_on_batch(np.asarray([state]))[0];
+            #print(action);
             action = np.argmax(action);
             states.append(state)
             action_one_hot = np.zeros(2);
             action_one_hot[action] = 1;
             actions.append(action_one_hot);
             state, reward, is_terminal, info = env.step(action);
+            #break;
     return np.asarray(states), np.asarray(actions);
 
 
@@ -87,8 +89,27 @@ def build_cloned_model():
 
     return model; 
 
+def dagger(model, expert, env, train_states, train_actions, num_episodes = 20):
+    """ train a clonded model based on the dagger algorithm
+    """
+    for i in range(num_episodes):
+        model.fit(train_states, train_actions, verbose =False, epochs = 50);
+        #new data
+        new_states, new_actions = generate_expert_training_data(model, env, num_episodes = 1);
+        new_actions = [];
+        for state in new_states:
+            action = expert.predict_on_batch(np.asarray([state]))[0];
+            action = np.argmax(action);
+            action_one_hot = np.zeros(2);
+            action_one_hot[action] = 1;
+            new_actions.append(action_one_hot);
+        new_actions = np.asarray(new_actions);
+        train_states = np.concatenate((train_states, new_states), axis = 0)
+        train_actions = np.concatenate((train_actions, new_actions), axis = 0);
+        if (i % 5 == 0):
+            test_cloned_policy(env, model, num_episodes=100, render=False)
 
-def test_cloned_policy(env, cloned_policy, num_episodes=50, render=True):
+def test_cloned_policy(env, cloned_policy, num_episodes=100, render=True):
     """Run cloned policy and collect statistics on performance.
 
     Will print the rewards for each episode and the mean/std of all
@@ -109,7 +130,7 @@ def test_cloned_policy(env, cloned_policy, num_episodes=50, render=True):
     total_rewards = []
 
     for i in range(num_episodes):
-        print('Starting episode {}'.format(i))
+        #print('Starting episode {}'.format(i))
         total_reward = 0
         state = env.reset()
         if render:
@@ -124,12 +145,11 @@ def test_cloned_policy(env, cloned_policy, num_episodes=50, render=True):
             if render:
                 env.render()
                 time.sleep(.1)
-        print(
-            'Total reward: {}'.format(total_reward))
+        #print('Total reward: {}'.format(total_reward))
         total_rewards.append(total_reward)
 
-    print('Average total reward: {} (std: {})'.format(
-        np.mean(total_rewards), np.std(total_rewards)))
+    print('Average total reward: {} (std: {}). min: {}, max: {}'.format(
+        np.mean(total_rewards), np.std(total_rewards), np.min(total_rewards), np.max(total_rewards)));
 
 
 def wrap_cartpole(env):
