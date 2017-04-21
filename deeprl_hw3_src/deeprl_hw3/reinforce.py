@@ -34,6 +34,9 @@ def sample_episode(env, policy):
         actions.append(action);
         state, reward, is_done, _ = env.step(action)
         rewards.append(reward)
+    for i in range(len(rewards)-1):
+        x = len(rewards) - i - 2;
+        rewards[x] = rewards[x] + rewards[x+1];
     return states, actions, rewards 
 
 
@@ -102,9 +105,8 @@ def reinforce(env, alpha = 0.1, beta = 0.1, max_episodes = 30000):
     get_pgrad[0] = K.function([policy.layers[0].input], policy_gradient[0]);
     get_pgrad[1] = K.function([policy.layers[0].input], policy_gradient[1]);
     while (True):
-        
         states, actions, rewards = sample_episode(env, policy);
-        #print(len(states));
+        print(rewards[0]);
         for i in range(len(states)):
             Gt = rewards[i];
             delta = Gt - value.predict_on_batch(np.asarray([states[i]]))[0];
@@ -115,7 +117,7 @@ def reinforce(env, alpha = 0.1, beta = 0.1, max_episodes = 30000):
                 value_params[x] += beta * delta * v_grads[x];
             for x in range(len(policy_params)):
                 policy_params[x] += alpha * delta * p_grads[x];
-        if (count % 60 == 0):
+        if (count % 30 == 0):
             deeprl_hw3.imitation.test_cloned_policy(env, policy, num_episodes=50, render=False)
             policy.save('policy.h5');
             value.save('value.h5');
