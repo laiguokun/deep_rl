@@ -70,7 +70,7 @@ def choose_action(model, observation):
     return p[1], action
 
 
-def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 1000):
+def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 10000):
     """Policy gradient algorithm
 
     Parameters
@@ -102,8 +102,10 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 1000):
             for x in range(len(policy_params)):
                 policy_params[x] += alpha * delta * policy_gradient[actions[i]][x];
             #policy_params += alpha * delta * policy_gradient[action[i]];
-        if (count % 20 == 0):
+        if (count % 100 == 0):
             deeprl_hw3.imitation.test_cloned_policy(env, policy, num_episodes=50, render=False)
+            policy.save('policy.h5');
+            value.save('value.h5');
         count += 1;
         if (count > max_episodes):
             break;
