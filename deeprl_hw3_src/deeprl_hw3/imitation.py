@@ -8,7 +8,7 @@ import time
 from keras.layers import (Activation, Convolution2D, Dense, Flatten, Input,
                           Permute,Lambda)
 from keras.models import Model, Sequential
-
+from copy import deepcopy 
 
 def load_model(model_config_path, model_weights_path=None):
     """Load a saved model.
@@ -68,7 +68,7 @@ def generate_expert_training_data(expert, env, num_episodes=100, render=True):
             action = expert.predict_on_batch(np.asarray([state]))[0];
             #print(action);
             action = np.argmax(action);
-            states.append(state)
+            states.append(deepcopy(state))
             action_one_hot = np.zeros(2);
             action_one_hot[action] = 1;
             actions.append(action_one_hot);
