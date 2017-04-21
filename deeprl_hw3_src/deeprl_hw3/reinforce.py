@@ -58,7 +58,7 @@ def sample_episode(env, policy):
 def build_model(alpha, beta):
     """ build the cloned model
     """
-    eplison = 1e-6
+    eplison = 1e-3
     INPUT_SHAPE = (4,);
     inputs = Input(shape = INPUT_SHAPE);
     hidden1 = Dense(16, activation = 'relu')(inputs);
@@ -94,7 +94,7 @@ def build_model(alpha, beta):
 
 
 
-def choose_action(model, observation):
+def choose_action(model, observation, eplison = 0.05):
     """choose the action 
 
     Parameters
@@ -109,7 +109,7 @@ def choose_action(model, observation):
     action: int
         the action you choose
     """
-    if (np.random.random() < 0.05):
+    if (np.random.random() < eplison):
         return np.random.randint(2);
     p = model.predict_on_batch(np.asarray([observation]))[0];
     action = np.random.choice(np.arange(len(p)), p=p)
