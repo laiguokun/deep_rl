@@ -106,7 +106,7 @@ def dagger(model, expert, env, train_states, train_actions, num_episodes = 20):
         new_actions = np.asarray(new_actions);
         train_states = np.concatenate((train_states, new_states), axis = 0)
         train_actions = np.concatenate((train_actions, new_actions), axis = 0);
-        if (i % 5 == 0):
+        if (i % 1 == 0):
             test_cloned_policy(env, model, num_episodes=100, render=False)
 
 def test_cloned_policy(env, cloned_policy, num_episodes=100, render=True):

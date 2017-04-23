@@ -1,0 +1,20 @@
+Using TensorFlow backend.
+[2017-04-23 15:21:34,755] Making new env: CartPole-v0
+(0.00025, 0.99)
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+Average total reward: 40.36 (std: 21.5274336603). min: 10.0, max: 106.0
+Average total reward: 86.64 (std: 27.6048981161). min: 47.0, max: 171.0
+Average total reward: 67.9 (std: 15.4793410712). min: 34.0, max: 106.0
+Average total reward: 99.58 (std: 42.2838456151). min: 47.0, max: 200.0
+Average total reward: 140.84 (std: 37.661842759). min: 75.0, max: 200.0
+Average total reward: 121.22 (std: 14.0318067261). min: 39.0, max: 141.0
+Average total reward: 90.68 (std: 44.3176894705). min: 16.0, max: 130.0
+Average total reward: 76.34 (std: 37.0732302342). min: 16.0, max: 117.0
+Average total reward: 38.72 (std: 34.9050368858). min: 13.0, max: 109.0
+Average total reward: 107.24 (std: 40.4141361407). min: 22.0, max: 156.0
+(2.5e-05, 0.99)
+Average total reward: 52.34 (std: 27.5953691767). min: 20.0, max: 98.0

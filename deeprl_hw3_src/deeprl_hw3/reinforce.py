@@ -36,6 +36,7 @@ def get_total_reward(env, model, num_episodes = 100):
 
     print('Average total reward: {} (std: {}). min: {}, max: {}'.format(
         np.mean(total_rewards), np.std(total_rewards), np.min(total_rewards), np.max(total_rewards)));
+    return np.mean(total_rewards);
 
 def sample_episode(env, policy):
     rewards = []
@@ -66,35 +67,37 @@ def build_model(alpha, beta):
     hidden3 = Dense(16, activation = 'relu')(hidden2);
     Pi = Dense(2, activation = 'softmax')(hidden3)
 
+    '''
     v_hidden1 = Dense(16, activation = 'relu')(inputs);
     v_hidden2 = Dense(16, activation = 'relu')(v_hidden1)
     V = Dense(1, activation = 'linear')(v_hidden1)
+    '''
     policy = Model(inputs, Pi);
-    value = Model(inputs, V);
+
+    #value = Model(inputs, V);
 
     delta = tf.placeholder(dtype=tf.float32, name="delta")
     action = tf.placeholder(dtype=tf.int32, name="action")
 
     policy_params = policy.trainable_weights;
-    value_params = value.trainable_weights;
-    value_output = value.output[0];
+    #value_params = value.trainable_weights;
+    #value_output = value.output[0];
     policy_output = tf.gather(policy.output[0], action)
     policy_output = tf.log(policy_output+eplison);
 
-    value_gradient = tf.gradients(value_output, value_params)
+    #value_gradient = tf.gradients(value_output, value_params)
     policy_gradient = tf.gradients(policy_output, policy_params)
 
-    v_updates = [ K.update(param, param + beta * delta * gparam) for param, gparam in zip(value_params, value_gradient)];
+    #v_updates = [ K.update(param, param + beta * delta * gparam) for param, gparam in zip(value_params, value_gradient)];
     p_updates = [ K.update(param, param + alpha * delta * gparam) for param, gparam in zip(policy_params, policy_gradient)];
-    value_update = K.function([value.layers[0].input, delta], value_gradient, updates = v_updates);
-    #tmp = policy_params[0] + alpha * delta * policy_gradient[0];
+    #value_update = K.function([value.layers[0].input, delta], value_gradient, updates = v_updates);
     policy_update = K.function([policy.layers[0].input, delta, action], policy_gradient, updates = p_updates);
 
-    return policy, value, policy_update, value_update; 
+    return policy, policy_update; 
 
 
 
-def choose_action(model, observation, eplison = 0.05):
+def choose_action(model, observation):
     """choose the action 
 
     Parameters
@@ -109,14 +112,12 @@ def choose_action(model, observation, eplison = 0.05):
     action: int
         the action you choose
     """
-    if (np.random.random() < eplison):
-        return np.random.randint(2);
     p = model.predict_on_batch(np.asarray([observation]))[0];
     action = np.random.choice(np.arange(len(p)), p=p)
     return action
 
 import time;
-def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
+def reinforce(env, alpha = 0.01, beta = 0.99, max_episodes = 2000):
     """Policy gradient algorithm
 
     Parameters
@@ -127,33 +128,28 @@ def reinforce(env, alpha = 0.01, beta = 0.01, max_episodes = 30000):
     -------
     Keras Model 
     """
-    policy, value, policy_update, value_update = build_model(alpha, beta);
+    policy, policy_update = build_model(alpha, beta);
     count = 0;
-    #sess = tf.InteractiveSession()
+    cnt = 0;
+    print(alpha, beta);
     while (True):
-        #x = time.time()
         states, actions, rewards = sample_episode(env, policy);
-        #print(time.time() - x)
         for i in range(len(states)):
             Gt = rewards[i];
             inputs = np.asarray([states[i]]);
-            delta = Gt - (200.0-i) * value.predict_on_batch(inputs)[0];
-            #print(delta);
-            value_update([inputs, delta]);
+            delta = Gt * (beta ** i) 
             policy_update([inputs, delta, actions[i]])
         count += 1;
         if (count % 100 == 0):
-            #print(alpha * delta * tmp)
-            #print(value.trainable_weights[0].eval());
-            #print(policy.trainable_weights[0].eval());
-            get_total_reward(env, policy, num_episodes=50)
+            if (get_total_reward(env, policy, num_episodes=50) == 200.0):
+                cnt += 1;
             policy.save('policy.h5');
-            value.save('value.h5');
+            if (cnt >= 3):
+                break;
         if (count % 1000 == 0):
-            #alpha *= 0.5;
-            #beta *= 0.5;
+            alpha *= 0.1;
             print(alpha, beta);
 
         if (count > max_episodes):
             break;
-    return 0
+    return policy

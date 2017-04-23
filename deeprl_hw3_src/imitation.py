@@ -17,21 +17,22 @@ print('experted model in original setting:');
 deeprl_hw3.imitation.test_cloned_policy(env, expert, render = R);
 print('experted model in harder setting:');
 deeprl_hw3.imitation.test_cloned_policy(hard_env, expert, render = R);
+
 '''
 for i in range(len(train_steps)):
 	print('eposide:', train_steps[i])
 	model = deeprl_hw3.imitation.build_cloned_model();
-	model.compile(optimizer='adam', loss='binary_crossentropy');
-	model.fit(train_data[i][0],train_data[i][1], verbose =False, epochs = 100)
+	model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']);
+	model.fit(train_data[i][0],train_data[i][1], verbose = 2, epochs = 100)
 	print('cloned model in original setting:')
 	deeprl_hw3.imitation.test_cloned_policy(env, model, render = R);
 	print('cloned model in harder setting:')
 	deeprl_hw3.imitation.test_cloned_policy(hard_env, model, render = R);
-'''
 
+'''
 #DAGGER
 model = deeprl_hw3.imitation.build_cloned_model();
-model.compile(optimizer='adam', loss='binary_crossentropy');
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']);
 deeprl_hw3.imitation.dagger(model, expert, env, train_data[0][0], train_data[0][1]);
 print('dagger model in harder settting:')
 deeprl_hw3.imitation.test_cloned_policy(hard_env, model, render = R)

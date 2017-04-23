@@ -1,0 +1,58 @@
+Using TensorFlow backend.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+[2017-04-23 11:56:47,566] Making new env: CartPole-v0
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         (None, 4)                 0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 16)                80        
+_________________________________________________________________
+activation_1 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 16)                272       
+_________________________________________________________________
+activation_2 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 16)                272       
+_________________________________________________________________
+activation_3 (Activation)    (None, 16)                0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 2)                 34        
+_________________________________________________________________
+activation_4 (Activation)    (None, 2)                 0         
+=================================================================
+Total params: 658
+Trainable params: 658
+Non-trainable params: 0
+_________________________________________________________________
+experted model in original setting:
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+experted model in harder setting:
+Average total reward: 63.74 (std: 48.2173454267). min: 18.0, max: 168.0
+Average total reward: 95.58 (std: 34.4215571989). min: 47.0, max: 196.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+dagger model in harder settting:
+Average total reward: 85.69 (std: 88.0458624809). min: 4.0, max: 200.0
