@@ -50,6 +50,8 @@ def sample_episode(env, policy):
         actions.append(action);
         state, reward, is_done, _ = env.step(action)
         rewards.append(reward)
+        if (len(states)>=200):
+            break;
     for i in range(len(rewards)-1):
         x = len(rewards) - i - 2;
         rewards[x] = rewards[x] + rewards[x+1];
