@@ -69,6 +69,13 @@ def build_model(alpha, beta):
 
     policy = Model(inputs, Pi);
 
+    v_hidden1 = Dense(16, activation = 'relu')(inputs);
+    v_hidden2 = Dense(16, activation = 'relu')(v_hidden1);
+    V = Dense(1, activation = 'linear')(v_hidden2)
+
+    value = Model(inputs, V);
+
+    value.compile(optimizer='adam', loss='mean_squared_error');
 
     #delta = tf.placeholder(dtype=tf.float32, name="delta")
     #action = tf.placeholder(dtype=tf.int32, name="action")
@@ -103,7 +110,7 @@ def build_model(alpha, beta):
     #policy_update = K.function([policy.layers[0].input, delta, action], policy_gradient, updates = p_updates);
     #optimizer = tf.train.AdamOptimizer(0.01).minimize(policy_output)
 
-    return policy, trainable_policy#, policy_update; 
+    return policy, trainable_policy, value#, policy_update; 
 
 
 
@@ -139,7 +146,7 @@ def reinforce(env, alpha = 0.01, beta = 0.99, max_episodes = 3000):
     Keras Model 
     """
     #policy, policy_update = build_model(alpha, beta);
-    policy, trainable_policy = build_model(alpha, beta)
+    policy, trainable_policy, value = build_model(alpha, beta)
     count = 0;
     cnt = 0;
     print(alpha, beta);
@@ -148,9 +155,11 @@ def reinforce(env, alpha = 0.01, beta = 0.99, max_episodes = 3000):
         for i in range(len(states)):
             Gt = rewards[i];
             inputs = np.asarray([states[i]]);
-            delta = np.asarray([Gt * (beta ** i)]);
+            reward = Gt * (beta ** i);
+            predict_reward = value.predict_on_batch([inputs])[0]
+            delta = np.asarray([reward - (200.0-i)* predict_reward]);
+            value.train_on_batch([inputs],[np.asarray(delta/(200.0-i))])
             action = np.asarray([actions[i]]);
-
             trainable_policy.train_on_batch([inputs, delta, action],[action])
             #trainable_policy.train_on_batch([inputs, delta, actions[i]],[actions[i]])
         count += 1;
