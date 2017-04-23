@@ -18,3 +18,23 @@ Average total reward: 38.72 (std: 34.9050368858). min: 13.0, max: 109.0
 Average total reward: 107.24 (std: 40.4141361407). min: 22.0, max: 156.0
 (2.5e-05, 0.99)
 Average total reward: 52.34 (std: 27.5953691767). min: 20.0, max: 98.0
+Average total reward: 143.16 (std: 15.2608780874). min: 108.0, max: 177.0
+Average total reward: 182.18 (std: 14.5625409871). min: 154.0, max: 200.0
+Average total reward: 198.62 (std: 3.67091269305). min: 179.0, max: 200.0
+Average total reward: 35.48 (std: 52.0185505373). min: 9.0, max: 165.0
+Average total reward: 168.42 (std: 49.6894717219). min: 12.0, max: 200.0
+Average total reward: 162.4 (std: 50.1788800194). min: 12.0, max: 195.0
+Average total reward: 100.76 (std: 83.983703181). min: 10.0, max: 193.0
+Average total reward: 102.14 (std: 71.9877795185). min: 10.0, max: 174.0
+Average total reward: 173.88 (std: 6.73985163041). min: 157.0, max: 190.0
+(2.5e-06, 0.99)
+Average total reward: 144.44 (std: 62.7513059625). min: 12.0, max: 192.0
+Average total reward: 82.14 (std: 49.7521899016). min: 29.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Average total reward: 200.0 (std: 0.0). min: 200.0, max: 200.0
+Traceback (most recent call last):
+  File "reinforce.py", line 21, in <module>
+    test_cloned_policy(hard_env, policy, render = R);
+NameError: name 'test_cloned_policy' is not defined
+Exception AttributeError: "'NoneType' object has no attribute 'TF_DeleteStatus'" in <bound method Session.__del__ of <tensorflow.python.client.session.Session object at 0x1135ace50>> ignored
